@@ -6,18 +6,11 @@
 
   import Button from "./../components/Button.svelte";
 
-  import { form, upsertOpen } from "./../stores/transactions";
+  import { upsertOpen } from "./../stores/transactions";
 
   // https://tailwindcomponents.com/component/table-responsive-with-filters
   const columns = ["Date", "Amount", "Title", "Category", ""];
   export let transactions: ReadableQuery<{ transactions: Transaction[] }>;
-
-  // let internalTrans;
-
-  // transactions.subscribe((res) => {
-  //   internalTrans = res;
-  //   console.log(internalTrans);
-  // });
 
   afterUpdate(() => {
     console.log($transactions);

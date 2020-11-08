@@ -1,13 +1,18 @@
 <script lang="ts">
-  import format from "date-fns/format";
+  import { gql } from "@apollo/client";
+  import { mutation } from "svelte-apollo";
   import Datepicker from "svelte-calendar";
+  import format from "date-fns/format";
+
+  import { ADD_TRANSACTION } from "../gql/transaction/mutations";
 
   import Button from "./../components/Button.svelte";
+  import ButtonGroup from "./../components/ButtonGroup.svelte";
+  import TransactionType from "./../components/TransactionType.svelte";
 
   import { Category } from "./../constants/Category";
 
   import { form as formData, upsertOpen } from "./../stores/transactions";
-  import { transactions } from "./../stores/transactions";
 
   const currencySymbols = {
     EUR: "€",
@@ -18,14 +23,25 @@
 
   let formattedSelected: string;
 
-  const onSubmit = () => {
-    transactions.update((prev) => [...prev, $formData]);
+  const add = mutation(ADD_TRANSACTION);
+
+  const onSubmit = async () => {
+    const { title } = $formData;
+
+    try {
+      await add({ variables: { addTransaction: { title } } });
+    } catch (error) {
+      console.error(error);
+    }
   };
 </script>
 
 <div class="p-4">
   <form action="#" method="POST">
     <div class="grid grid-cols-6 gap-6">
+      <div class="col-span-6">
+        <TransactionType />
+      </div>
       <div class="col-span-6">
         <label
           for="amount"

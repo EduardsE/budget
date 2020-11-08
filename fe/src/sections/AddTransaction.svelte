@@ -4,6 +4,8 @@
 
   import { form, upsertOpen, reset } from "./../stores/transactions";
 
+  upsertOpen.set(true);
+
   const close = () => {
     upsertOpen.set(false);
     reset();

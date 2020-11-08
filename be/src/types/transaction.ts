@@ -1,3 +1,5 @@
+import { registerEnumType } from "type-graphql";
+
 export enum Category {
   ALCOHOL = "Alcohol",
   CLOTHES = "Clothes",
@@ -19,8 +21,8 @@ export enum Category {
 }
 
 export enum TransactionType {
-  INCOME = "INCOME",
-  EXPENSE = "EXPENSE",
+  INCOME,
+  EXPENSE,
 }
 
 export interface Transaction {

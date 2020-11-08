@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -22,9 +23,30 @@ export type Transaction = {
   __typename?: 'Transaction';
   title: Scalars['String'];
   date: Scalars['DateTime'];
-  test: Scalars['String'];
+  type: TransactionType;
 };
 
+
+export enum TransactionType {
+  Income = 'INCOME',
+  Expense = 'EXPENSE'
+}
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  add: Transaction;
+};
+
+
+export type MutationAddArgs = {
+  transaction: Add;
+};
+
+export type Add = {
+  title: Scalars['String'];
+  date: Scalars['DateTime'];
+  type: TransactionType;
+};
 
 
 
@@ -108,6 +130,9 @@ export type ResolversTypes = {
   Transaction: ResolverTypeWrapper<Transaction>;
   String: ResolverTypeWrapper<Scalars['String']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  TransactionType: TransactionType;
+  Mutation: ResolverTypeWrapper<{}>;
+  Add: Add;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -117,6 +142,8 @@ export type ResolversParentTypes = {
   Transaction: Transaction;
   String: Scalars['String'];
   DateTime: Scalars['DateTime'];
+  Mutation: {};
+  Add: Add;
   Boolean: Scalars['Boolean'];
 };
 
@@ -128,7 +155,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type TransactionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Transaction'] = ResolversParentTypes['Transaction']> = {
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   date?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  test?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['TransactionType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -136,10 +163,15 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
   name: 'DateTime';
 }
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  add?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddArgs, 'transaction'>>;
+};
+
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  Mutation?: MutationResolvers<ContextType>;
 };
 
 
