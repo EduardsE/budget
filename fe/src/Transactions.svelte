@@ -3,7 +3,7 @@
 
   import { GET_TRANSACTIONS } from "./gql/transaction/queries";
 
-  import AddTransaction from "./sections/AddTransaction.svelte";
+  import AddTransaction from "./sections/Transaction/Add/index.svelte";
   import Expenses from "./sections/Expenses.svelte";
 
   import type { Transaction } from "./types/Transaction";

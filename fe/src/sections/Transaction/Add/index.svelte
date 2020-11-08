@@ -1,8 +1,8 @@
 <script>
   import { slide, fade } from "svelte/transition";
-  import AddTransactionForm from "./AddTransactionForm.svelte";
+  import AddTransactionForm from "./Form.svelte";
 
-  import { form, upsertOpen, reset } from "./../stores/transactions";
+  import { form, upsertOpen } from "./../../../stores/transactions";
 
   upsertOpen.set(true);
 

@@ -2,6 +2,7 @@
   import { format } from "date-fns";
   import { afterUpdate } from "svelte";
   import type { ReadableQuery } from "svelte-apollo";
+
   import type { Transaction } from "../types/Transaction";
 
   import Button from "./../components/Button.svelte";

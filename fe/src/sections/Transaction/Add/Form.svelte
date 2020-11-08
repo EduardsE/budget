@@ -4,15 +4,14 @@
   import Datepicker from "svelte-calendar";
   import format from "date-fns/format";
 
-  import { ADD_TRANSACTION } from "../gql/transaction/mutations";
+  import { ADD_TRANSACTION } from "../../../gql/transaction/mutations";
 
-  import Button from "./../components/Button.svelte";
-  import ButtonGroup from "./../components/ButtonGroup.svelte";
-  import TransactionType from "./../components/TransactionType.svelte";
+  import Button from "./../../../components/Button.svelte";
+  import TransactionType from "./../../../components/TransactionType.svelte";
 
-  import { Category } from "./../constants/Category";
+  import { Category } from "./../../../constants/Category";
 
-  import { form as formData, upsertOpen } from "./../stores/transactions";
+  import { form as formData, upsertOpen } from "./../../../stores/transactions";
 
   const currencySymbols = {
     EUR: "€",

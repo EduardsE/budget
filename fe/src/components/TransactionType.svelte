@@ -1,26 +1,34 @@
 <script lang="ts">
   import { TransactionType } from "../types/Transaction";
 
-  let active: TransactionType = TransactionType.INCOME;
+  let selected = TransactionType.EXPENSE;
 
-  const classes =
-    "p-4 py-2 rounded-md border border-white-500 text-gray-700 w-full";
-
-  const activeClasses = "border-indigo-500 bg-indigo-100 text-indigo-900 ";
-
-  const toggle = (type: TransactionType) => {
-    console.log(type);
-    active = type;
-  };
+  const radios = [
+    {
+      label: "Expense",
+      value: TransactionType.EXPENSE,
+    },
+    {
+      label: "Income",
+      value: TransactionType.INCOME,
+    },
+  ];
 </script>
 
-<div class="flex">
-  <button
-    type="button"
-    on:click={() => toggle(TransactionType.EXPENSE)}
-    class={`${classes} rounded-r-none ${active === TransactionType.EXPENSE ? activeClasses : 'border-r-0'}`}>Expense</button>
-  <button
-    type="button"
-    on:click={() => toggle(TransactionType.INCOME)}
-    class={`${classes} rounded-l-none ${active === TransactionType.INCOME ? activeClasses : 'border-l-0'}`}>Income</button>
+<div class="grid gap-1 grid-cols-2">
+  {#each radios as { label, value }}
+    <label
+      class={`
+        px-9 py-2 rounded-md border border-white-500 text-gray-700 w-full 
+        cursor-pointer relative flex items-center hover:border-indigo-500 
+        ${value === selected && 'border-indigo-500 bg-indigo-100 text-indigo-900'}`}>
+      {label}
+      <input
+        type="radio"
+        {value}
+        bind:group={selected}
+        class="absolute left-3 cursor-pointer"
+        name="radio" />
+    </label>
+  {/each}
 </div>
