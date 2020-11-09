@@ -1,7 +1,6 @@
 <script lang="ts">
   import { TransactionType } from "../types/Transaction";
-
-  let selected = TransactionType.EXPENSE;
+  import { form } from "stores/transactions";
 
   const radios = [
     {
@@ -21,12 +20,12 @@
       class={`
         px-9 py-2 rounded-md border border-white-500 text-gray-700 w-full 
         cursor-pointer relative flex items-center hover:border-indigo-500 
-        ${value === selected && 'border-indigo-500 bg-indigo-100 text-indigo-900'}`}>
+        ${value === $form.type && 'border-indigo-500 bg-indigo-100 text-indigo-900'}`}>
       {label}
       <input
         type="radio"
         {value}
-        bind:group={selected}
+        bind:group={$form.type}
         class="absolute left-3 cursor-pointer"
         name="radio" />
     </label>

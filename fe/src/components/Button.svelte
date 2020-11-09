@@ -1,6 +1,7 @@
 <script lang="ts">
   export let variant: "primary" | "danger" | "success" | "light" = "primary";
   export let addClass: string;
+  export let type: "submit" | "button" | "reset" = "button";
 
   const dic = {
     primary: "indigo",
@@ -18,6 +19,6 @@
   }
 </script>
 
-<button on:click type="button" class={`${common} ${additional} ${addClass}`}>
+<button on:click {type} class={`${common} ${additional} ${addClass}`}>
   <slot />
 </button>

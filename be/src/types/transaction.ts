@@ -29,6 +29,6 @@ export interface Transaction {
   type: TransactionType;
   date: Date;
   title: string;
+  amount: number;
   category: Category;
-  // amount: number;
 }

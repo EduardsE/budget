@@ -2,7 +2,7 @@ import { Transaction, TransactionType } from "@prisma/client";
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class Add implements Partial<Transaction> {
+export class AddTransactionInput implements Partial<Transaction> {
   @Field()
   title!: string;
 
@@ -11,4 +11,10 @@ export class Add implements Partial<Transaction> {
 
   @Field((type) => TransactionType)
   type!: TransactionType;
+
+  @Field()
+  amount!: number;
+
+  @Field()
+  category!: string;
 }

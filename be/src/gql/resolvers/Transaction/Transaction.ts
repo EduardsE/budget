@@ -2,7 +2,7 @@ import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { Context } from "../../../context";
 import TransactionModel from "../../models/Transaction";
 
-import { Add } from "./Add";
+import { AddTransactionInput } from "./Add";
 
 @Resolver(TransactionModel)
 class TransactionResolver {
@@ -18,23 +18,22 @@ class TransactionResolver {
 
   @Query((returns) => [TransactionModel])
   async transactions(@Ctx() { prisma }: Context) {
-    Add;
     const transactions = await prisma.transaction.findMany();
     return transactions;
   }
 
   @Mutation((returns) => TransactionModel)
-  async add(@Arg("transaction") data: Add, @Ctx() { prisma }: Context) {
+  async add(
+    @Arg("transaction") data: AddTransactionInput,
+    @Ctx() { prisma }: Context
+  ) {
+    console.log(data);
+
     const transaction = await prisma.transaction.create({
       data,
     });
 
-    // console.log(input);
-
-    // const res = prisma.transaction.create({ data: input } as any);
-    // return res;
-    // const newTransaction = prisma..create({ title: "test title" });
-    // return this.recipeRepository.save(newRecipe);
+    return transaction;
   }
 }
 

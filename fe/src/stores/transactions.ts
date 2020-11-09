@@ -1,3 +1,4 @@
+import { TransactionType } from "src/types/Transaction";
 import { writable } from "svelte/store";
 import { Category } from "../constants/Category";
 
@@ -29,6 +30,7 @@ const defaultValues = {
   date: new Date(),
   title: "",
   category: Category.FOOD,
+  type: TransactionType.EXPENSE,
 };
 
 export const form = writable(defaultValues);

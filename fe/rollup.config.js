@@ -3,9 +3,11 @@ import svelte from "rollup-plugin-svelte";
 import resolve from "rollup-plugin-node-resolve";
 import livereload from "rollup-plugin-livereload";
 import html from "@rollup/plugin-html";
+import alias from "@rollup/plugin-alias";
 import postcss from "postcss";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
+import path from "path";
 
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
@@ -38,6 +40,32 @@ export default [
           css.write("main.css");
         },
       }),
+
+      alias({
+        entries: [
+          {
+            find: "components",
+            replacement: path.resolve(__dirname, "src/components"),
+          },
+          {
+            find: "constants",
+            replacement: path.resolve(__dirname, "src/constants"),
+          },
+          {
+            find: "gql",
+            replacement: path.resolve(__dirname, "src/gql"),
+          },
+          {
+            find: "stores",
+            replacement: path.resolve(__dirname, "src/stores"),
+          },
+          {
+            find: "types",
+            replacement: path.resolve(__dirname, "src/types"),
+          },
+        ],
+      }),
+
       resolve({
         browser: true,
         dedupe: ["svelte"],

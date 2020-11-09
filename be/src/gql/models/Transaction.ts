@@ -15,6 +15,12 @@ class Transaction {
 
   @Field(() => TransactionType)
   type!: TransactionType;
+
+  @Field()
+  amount!: number;
+
+  @Field()
+  category!: string;
 }
 
 export default Transaction;

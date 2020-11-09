@@ -102,6 +102,13 @@
     {
       "tag": "CreateField",
       "model": "Transaction",
+      "field": "category",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Transaction",
       "field": "createdAt",
       "type": "DateTime",
       "arity": "Required"

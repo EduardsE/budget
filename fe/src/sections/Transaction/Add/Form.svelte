@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { gql } from "@apollo/client";
   import { mutation } from "svelte-apollo";
   import Datepicker from "svelte-calendar";
   import format from "date-fns/format";
 
-  import { ADD_TRANSACTION } from "../../../gql/transaction/mutations";
+  import { ADD_TRANSACTION } from "gql/transaction/mutations";
 
-  import Button from "./../../../components/Button.svelte";
-  import TransactionType from "./../../../components/TransactionType.svelte";
+  import Button from "components/Button.svelte";
+  import TransactionType from "components/TransactionType.svelte";
 
-  import { Category } from "./../../../constants/Category";
+  import { Category } from "constants/Category";
 
-  import { form as formData, upsertOpen } from "./../../../stores/transactions";
+  import { form as formData, upsertOpen } from "stores/transactions";
 
   const currencySymbols = {
     EUR: "€",
@@ -25,10 +24,11 @@
   const add = mutation(ADD_TRANSACTION);
 
   const onSubmit = async () => {
-    const { title } = $formData;
-
     try {
-      await add({ variables: { addTransaction: { title } } });
+      const { amount, ...rest } = $formData;
+      await add({
+        variables: { addTransaction: { ...rest, amount: amount * 100 } },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -118,7 +118,7 @@
         on:click={() => upsertOpen.set(false)}>
         Cancel
       </Button>
-      <Button variant="primary" on:click={onSubmit}>Save</Button>
+      <Button variant="primary" type="button" on:click={onSubmit}>Save</Button>
     </div>
   </form>
 </div>

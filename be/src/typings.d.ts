@@ -24,6 +24,8 @@ export type Transaction = {
   title: Scalars['String'];
   date: Scalars['DateTime'];
   type: TransactionType;
+  amount: Scalars['Float'];
+  category: Scalars['String'];
 };
 
 
@@ -39,13 +41,15 @@ export type Mutation = {
 
 
 export type MutationAddArgs = {
-  transaction: Add;
+  transaction: AddTransactionInput;
 };
 
-export type Add = {
+export type AddTransactionInput = {
   title: Scalars['String'];
   date: Scalars['DateTime'];
   type: TransactionType;
+  amount: Scalars['Float'];
+  category: Scalars['String'];
 };
 
 
@@ -129,10 +133,11 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Transaction: ResolverTypeWrapper<Transaction>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   TransactionType: TransactionType;
   Mutation: ResolverTypeWrapper<{}>;
-  Add: Add;
+  AddTransactionInput: AddTransactionInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -141,9 +146,10 @@ export type ResolversParentTypes = {
   Query: {};
   Transaction: Transaction;
   String: Scalars['String'];
+  Float: Scalars['Float'];
   DateTime: Scalars['DateTime'];
   Mutation: {};
-  Add: Add;
+  AddTransactionInput: AddTransactionInput;
   Boolean: Scalars['Boolean'];
 };
 
@@ -156,6 +162,8 @@ export type TransactionResolvers<ContextType = any, ParentType extends Resolvers
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   date?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['TransactionType'], ParentType, ContextType>;
+  amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
