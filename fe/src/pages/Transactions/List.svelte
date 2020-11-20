@@ -5,12 +5,12 @@
 
   import Button from "components/Button.svelte";
 
-  import { form, upsertOpen } from "stores/transactions";
+  import { form, list, upsertOpen } from "stores/transactions";
   import currencyHelper from "src/helpers/currency";
 
   // https://tailwindcomponents.com/component/table-responsive-with-filters
   const columns = ["Date", "Amount", "Title", "Category", ""];
-  export let transactions: Transaction[] = [];
+
   export let type: TransactionType;
 
   const onAdd = () => {
@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            {#each transactions.filter(({ type: type_ }) => type === type_) as expense}
+            {#each $list.filter(({ type: type_ }) => type === type_) as expense}
               <tr>
                 <td class="p-3 text-sm">
                   <div class="flex items-center">

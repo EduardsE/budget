@@ -2,7 +2,7 @@
   import { slide, fade } from "svelte/transition";
   import AddTransactionForm from "./Form.svelte";
 
-  import { upsertOpen } from "./../../../stores/transactions";
+  import { upsertOpen } from "../../../stores/transactions";
 
   const close = () => {
     upsertOpen.set(false);

@@ -1,14 +1,23 @@
 <script lang="ts">
-  import AddTransaction from "../../sections/Transaction/Add/index.svelte";
-  import List from "./List.svelte";
+  import { onMount } from "svelte";
+
+  import AddTransaction from "./Add/index.svelte";
 
   import { TransactionType } from "types/Transaction";
+  import http from "src/lib/http";
 
-  const transactions = [];
+  import { list } from "stores/transactions";
+
+  import List from "./List.svelte";
+
+  onMount(async () => {
+    const { transactions } = await http("transactions");
+    list.set(transactions);
+  });
 </script>
 
 <div class="grid lg:grid-cols-2">
-  <List {transactions} type={TransactionType.INCOME} />
-  <List {transactions} type={TransactionType.EXPENSE} />
+  <List type={TransactionType.INCOME} />
+  <List type={TransactionType.EXPENSE} />
   <AddTransaction />
 </div>
