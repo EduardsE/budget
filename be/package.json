@@ -5,8 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "run-p start:dev codegen:watch",
-    "start:dev": "ts-node-dev --no-notify --rs --no-deps --respawn src/index.ts",
-    "prisma:migrate": "prisma migrate save --name createTransactions --experimental && prisma migrate up --experimental",
+    "start:dev": "ts-node-dev --no-notify --rs --no-deps --respawn -r tsconfig-paths/register src/index.ts",
+    "prisma:migrate": "prisma migrate save --name createTransactions --experimental && prisma migrate up --experimental && prisma generate",
+    "prisma:generate": "prisma generate",
     "codegen": "graphql-codegen --config codegen.yml",
     "codegen:watch": "onchange 'src/gql/**/*.ts' -- yarn codegen"
   },
@@ -19,7 +20,10 @@
     "apollo-server": "^2.19.0",
     "class-validator": "^0.12.2",
     "graphql": "^15.4.0",
+    "koa": "^2.13.0",
+    "koa-router": "^10.0.0",
     "reflect-metadata": "^0.1.13",
+    "tsconfig-paths": "^3.9.0",
     "type-graphql": "^1.1.0"
   },
   "devDependencies": {
@@ -27,7 +31,9 @@
     "@graphql-codegen/introspection": "^1.18.0",
     "@graphql-codegen/typescript": "1.17.11",
     "@graphql-codegen/typescript-resolvers": "^1.17.10",
-    "@prisma/cli": "2.10.1",
+    "@prisma/cli": "^2.10.2",
+    "@types/koa": "^2.11.6",
+    "@types/koa-router": "^7.4.1",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
     "ts-node-dev": "^1.0.0",

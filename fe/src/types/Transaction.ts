@@ -28,4 +28,5 @@ export interface Transaction {
   date: Date;
   title: string;
   category: Category;
+  amount: number;
 }

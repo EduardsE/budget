@@ -1,14 +1,14 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { Context } from "../../../context";
-import TransactionModel from "../../models/Transaction";
+import Transaction from "../../models/Transaction";
 
 import { AddTransactionInput } from "./Add";
 
-@Resolver(TransactionModel)
+@Resolver(Transaction)
 class TransactionResolver {
   constructor() {}
 
-  @Query((returns) => TransactionModel)
+  @Query((returns) => Transaction)
   async transaction() {
     return {
       date: new Date(),
@@ -16,19 +16,17 @@ class TransactionResolver {
     };
   }
 
-  @Query((returns) => [TransactionModel])
+  @Query((returns) => [Transaction])
   async transactions(@Ctx() { prisma }: Context) {
     const transactions = await prisma.transaction.findMany();
     return transactions;
   }
 
-  @Mutation((returns) => TransactionModel)
+  @Mutation((returns) => Transaction)
   async add(
     @Arg("transaction") data: AddTransactionInput,
     @Ctx() { prisma }: Context
   ) {
-    console.log(data);
-
     const transaction = await prisma.transaction.create({
       data,
     });

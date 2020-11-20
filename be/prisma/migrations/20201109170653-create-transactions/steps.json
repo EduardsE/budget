@@ -102,6 +102,13 @@
     {
       "tag": "CreateField",
       "model": "Transaction",
+      "field": "amount",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Transaction",
       "field": "category",
       "type": "String",
       "arity": "Required"

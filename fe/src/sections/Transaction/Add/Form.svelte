@@ -1,9 +1,6 @@
 <script lang="ts">
-  import { mutation } from "svelte-apollo";
   import Datepicker from "svelte-calendar";
   import format from "date-fns/format";
-
-  import { ADD_TRANSACTION } from "gql/transaction/mutations";
 
   import Button from "components/Button.svelte";
   import TransactionType from "components/TransactionType.svelte";
@@ -21,14 +18,11 @@
 
   let formattedSelected: string;
 
-  const add = mutation(ADD_TRANSACTION);
-
   const onSubmit = async () => {
     try {
       const { amount, ...rest } = $formData;
-      await add({
-        variables: { addTransaction: { ...rest, amount: amount * 100 } },
-      });
+
+      upsertOpen.set(false);
     } catch (error) {
       console.error(error);
     }
@@ -72,6 +66,16 @@
 
       <div class="col-span-6">
         <label
+          for="title"
+          class="block text-sm font-medium leading-5 text-gray-700">Title</label>
+        <input
+          id="title"
+          bind:value={$formData.title}
+          class="form-input mt-1 block w-full py-2 px-3 sm:text-sm sm:leading-5" />
+      </div>
+
+      <div class="col-span-6">
+        <label
           for="category"
           class="block text-sm font-medium leading-5 text-gray-700">Category</label>
         <select
@@ -98,16 +102,6 @@
             bind:value={formattedSelected}
             class="form-input mt-1 block w-full py-2 px-3 sm:text-sm sm:leading-5" />
         </Datepicker>
-      </div>
-
-      <div class="col-span-6">
-        <label
-          for="title"
-          class="block text-sm font-medium leading-5 text-gray-700">Title</label>
-        <input
-          id="title"
-          bind:value={$formData.title}
-          class="form-input mt-1 block w-full py-2 px-3 sm:text-sm sm:leading-5" />
       </div>
     </div>
 
