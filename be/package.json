@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "run-p start:dev codegen:watch",
-    "start:dev": "ts-node-dev --no-notify --rs --no-deps --respawn -r tsconfig-paths/register src/index.ts",
+    "start:dev": "ts-node-dev --no-notify --exit-child --rs --no-deps --respawn -r tsconfig-paths/register src/index.ts",
     "prisma:migrate": "prisma migrate save --name createTransactions --experimental && prisma migrate up --experimental && prisma generate",
     "prisma:generate": "prisma generate",
     "codegen": "graphql-codegen --config codegen.yml",
@@ -24,6 +24,7 @@
     "koa": "^2.13.0",
     "koa-router": "^10.0.0",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^9.0.0",
     "tsconfig-paths": "^3.9.0",
     "type-graphql": "^1.1.0"
   },

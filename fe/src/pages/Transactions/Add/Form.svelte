@@ -8,6 +8,7 @@
   import { Category } from "constants/Category";
 
   import { form as formData, upsertOpen } from "stores/transactions";
+  import http from "src/lib/http";
 
   const currencySymbols = {
     EUR: "€",
@@ -21,6 +22,14 @@
   const onSubmit = async () => {
     try {
       const { amount, ...rest } = $formData;
+
+      const { transactions } = await http("transaction", {
+        method: "POST",
+        body: JSON.stringify({
+          ...rest,
+          amount: amount * 100,
+        }),
+      });
 
       upsertOpen.set(false);
     } catch (error) {
