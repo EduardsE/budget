@@ -7,7 +7,7 @@
 
   import { Category } from "constants/Category";
 
-  import { form as formData, upsertOpen } from "stores/transactions";
+  import { form as formData, list, upsertOpen } from "stores/transactions";
   import http from "src/lib/http";
 
   const currencySymbols = {
@@ -19,11 +19,38 @@
 
   let formattedSelected: string;
 
-  const onSubmit = async () => {
+  const onUpdate = async () => {
+    try {
+      const { amount, id, ...rest } = $formData;
+
+      const { transaction } = await http(`transaction/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          ...rest,
+          amount: amount * 100,
+        }),
+      });
+
+      list.update((transactions) => 
+        transactions.map(item => {
+          if (item.id === id) {
+            return transaction;
+          }
+          return item;
+        })
+      )
+      // list.update((transactions) => [...transactions, transaction]);
+      upsertOpen.set(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onCreate = async () => {\
     try {
       const { amount, ...rest } = $formData;
 
-      const { transactions } = await http("transaction", {
+      const { transaction } = await http("transaction", {
         method: "POST",
         body: JSON.stringify({
           ...rest,
@@ -31,6 +58,31 @@
         }),
       });
 
+      list.update((transactions) => [...transactions, transaction]);
+      upsertOpen.set(false);
+    } catch (error) {
+      console.error(error);
+    }};
+
+  const onSubmit = async () => {
+    // if ($formData.id) {
+    //   update()
+    // } else {
+
+    // }
+
+    try {
+      const { amount, ...rest } = $formData;
+
+      const { transaction } = await http("transaction", {
+        method: "POST",
+        body: JSON.stringify({
+          ...rest,
+          amount: amount * 100,
+        }),
+      });
+
+      list.update((transactions) => [...transactions, transaction]);
       upsertOpen.set(false);
     } catch (error) {
       console.error(error);
@@ -121,7 +173,12 @@
         on:click={() => upsertOpen.set(false)}>
         Cancel
       </Button>
-      <Button variant="primary" type="button" on:click={onSubmit}>Save</Button>
+      <Button
+        variant="primary"
+        type="button"
+        on:click={$formData.id ? onUpdate() : onCreate()}>
+        Save
+      </Button>
     </div>
   </form>
 </div>

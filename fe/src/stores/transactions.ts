@@ -2,7 +2,16 @@ import { TransactionType } from "src/types/Transaction";
 import { writable } from "svelte/store";
 import { Category } from "../constants/Category";
 
-const defaultValues = {
+interface FormData {
+  id?: number;
+  amount: number;
+  date: Date;
+  title: string;
+  category: Category;
+  type: TransactionType;
+}
+
+const defaultValues: FormData = {
   amount: null,
   date: new Date(),
   title: "",
@@ -10,7 +19,7 @@ const defaultValues = {
   type: TransactionType.EXPENSE,
 };
 
-export const form = writable(defaultValues);
+export const form = writable<FormData>(defaultValues);
 
 export const reset = () => form.set(defaultValues);
 

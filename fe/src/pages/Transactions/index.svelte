@@ -11,7 +11,7 @@
   import List from "./List.svelte";
 
   onMount(async () => {
-    const { transactions } = await http("transactions");
+    const { transactions } = await http("transaction");
     list.set(transactions);
   });
 </script>

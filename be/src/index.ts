@@ -1,11 +1,9 @@
-import { config } from "dotenv";
 import Koa from "koa";
 import Router from "koa-router";
 import cors from "@koa/cors";
+import koaBody from "koa-body";
 
 import transactionService from "./services/Transaction";
-
-// import "reflect-metadata";
 
 const initKoa = async () => {
   const app = new Koa();
@@ -20,19 +18,16 @@ const initKoa = async () => {
   });
 
   router.post("/transaction", async (ctx, next) => {
-    console.log(ctx.get);
-    console.log(ctx.get);
-    console.log(ctx.get);
-
-    const transactions = await transactionService.list();
+    const transaction = await transactionService.create(ctx.request.body);
 
     ctx.body = {
-      transactions,
+      transaction,
     };
   });
 
   app
     .use(cors({ credentials: true, origin: "http://localhost:5000" }))
+    .use(koaBody({ json: true }))
     .use(router.routes())
     .use(router.allowedMethods());
   app.listen(3000);

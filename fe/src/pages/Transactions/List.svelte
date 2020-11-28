@@ -20,8 +20,6 @@
 
   const onEdit = (transaction: Transaction) => {
     upsertOpen.set(true);
-    console.log(transaction);
-
     form.set({ ...transaction, date: new Date(transaction.date) });
   };
 </script>
@@ -86,7 +84,7 @@
                   class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
                   <a
                     on:click={() => onEdit(expense)}
-                    href="void(0)"
+                    href={'#'}
                     class="text-indigo-600 hover:text-indigo-900">Edit</a>
                 </td>
               </tr>
