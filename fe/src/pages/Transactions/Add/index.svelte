@@ -2,10 +2,11 @@
   import { slide, fade } from "svelte/transition";
   import AddTransactionForm from "./Form.svelte";
 
-  import { upsertOpen } from "../../../stores/transactions";
+  import { reset, upsertOpen } from "stores/transactions";
 
-  const close = () => {
+  const onClose = () => {
     upsertOpen.set(false);
+    reset();
   };
 </script>
 
@@ -14,7 +15,7 @@
     <div class="absolute inset-0 overflow-hidden">
       <div
         transition:fade={{ duration: 200 }}
-        on:click={close}
+        on:click={onClose}
         class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 
       <section class="absolute inset-y-0 right-0 pl-10 max-w-full flex">
@@ -26,7 +27,7 @@
             <button
               aria-label="Close panel"
               class="text-gray-300 hover:text-white transition ease-in-out duration-150"
-              on:click={close}>
+              on:click={onClose}>
               <svg
                 class="h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +51,7 @@
                 </h2>
               </div>
             </header>
-            <AddTransactionForm />
+            <AddTransactionForm {onClose} />
           </div>
         </div>
       </section>

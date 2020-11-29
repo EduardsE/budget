@@ -7,8 +7,15 @@
 
   import { Category } from "constants/Category";
 
-  import { form as formData, list, upsertOpen } from "stores/transactions";
+  import {
+    form as formData,
+    reset,
+    list,
+    upsertOpen,
+  } from "stores/transactions";
   import http from "src/lib/http";
+
+  export let onClose;
 
   const currencySymbols = {
     EUR: "€",
@@ -31,22 +38,21 @@
         }),
       });
 
-      list.update((transactions) => 
-        transactions.map(item => {
+      list.update((transactions) =>
+        transactions.map((item) => {
           if (item.id === id) {
             return transaction;
           }
           return item;
         })
-      )
-      // list.update((transactions) => [...transactions, transaction]);
-      upsertOpen.set(false);
+      );
+      onClose();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const onCreate = async () => {\
+  const onCreate = async () => {
     try {
       const { amount, ...rest } = $formData;
 
@@ -59,31 +65,7 @@
       });
 
       list.update((transactions) => [...transactions, transaction]);
-      upsertOpen.set(false);
-    } catch (error) {
-      console.error(error);
-    }};
-
-  const onSubmit = async () => {
-    // if ($formData.id) {
-    //   update()
-    // } else {
-
-    // }
-
-    try {
-      const { amount, ...rest } = $formData;
-
-      const { transaction } = await http("transaction", {
-        method: "POST",
-        body: JSON.stringify({
-          ...rest,
-          amount: amount * 100,
-        }),
-      });
-
-      list.update((transactions) => [...transactions, transaction]);
-      upsertOpen.set(false);
+      onClose();
     } catch (error) {
       console.error(error);
     }
@@ -167,16 +149,11 @@
     </div>
 
     <div class="px-4 py-4 text-right absolute w-full bottom-0 left-0 border-t">
-      <Button
-        addClass="mr-3"
-        variant="light"
-        on:click={() => upsertOpen.set(false)}>
-        Cancel
-      </Button>
+      <Button addClass="mr-3" variant="light" on:click={onClose}>Cancel</Button>
       <Button
         variant="primary"
         type="button"
-        on:click={$formData.id ? onUpdate() : onCreate()}>
+        on:click={$formData.id ? onUpdate : onCreate}>
         Save
       </Button>
     </div>

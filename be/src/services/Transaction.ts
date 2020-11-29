@@ -1,17 +1,31 @@
-import { TransactionCreateInput } from "@prisma/client";
+import {
+  Transaction,
+  TransactionCreateInput,
+  TransactionUpdateInput,
+} from "@prisma/client";
 import prisma from "config/prisma";
 
 class TransactionService {
   public async list() {
-    const transactions = await prisma.transaction.findMany();
-    return transactions;
+    return await prisma.transaction.findMany();
   }
 
   public async create(transactionData: TransactionCreateInput) {
-    const transactions = await prisma.transaction.create({
+    return await prisma.transaction.create({
       data: transactionData,
     });
-    return transactions;
+  }
+
+  public async update(
+    id: Transaction["id"],
+    transactionData: TransactionUpdateInput
+  ) {
+    return await prisma.transaction.update({
+      where: {
+        id,
+      },
+      data: transactionData,
+    });
   }
 }
 
