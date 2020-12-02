@@ -31,14 +31,14 @@
         }),
       });
 
-      list.update((transactions) => 
-        transactions.map(item => {
+      list.update((transactions) =>
+        transactions.map((item) => {
           if (item.id === id) {
             return transaction;
           }
           return item;
         })
-      )
+      );
       // list.update((transactions) => [...transactions, transaction]);
       upsertOpen.set(false);
     } catch (error) {
@@ -46,7 +46,7 @@
     }
   };
 
-  const onCreate = async () => {\
+  const onCreate = async () => {
     try {
       const { amount, ...rest } = $formData;
 
@@ -62,7 +62,8 @@
       upsertOpen.set(false);
     } catch (error) {
       console.error(error);
-    }};
+    }
+  };
 
   const onSubmit = async () => {
     // if ($formData.id) {
