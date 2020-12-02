@@ -25,6 +25,17 @@ const initKoa = async () => {
     };
   });
 
+  router.patch("/transaction/:id", async (ctx, next) => {
+    const transaction = await transactionService.update(
+      +ctx.params.id,
+      ctx.request.body
+    );
+
+    ctx.body = {
+      transaction,
+    };
+  });
+
   app
     .use(cors({ credentials: true, origin: "http://localhost:5000" }))
     .use(koaBody({ json: true }))

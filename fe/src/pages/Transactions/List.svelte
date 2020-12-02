@@ -18,9 +18,9 @@
     form.set({ ...$form, type });
   };
 
-  const onEdit = (transaction: Transaction) => {
+  const onEdit = ({ date, amount, ...rest }: Transaction) => {
     upsertOpen.set(true);
-    form.set({ ...transaction, date: new Date(transaction.date) });
+    form.set({ ...rest, date: new Date(date), amount: amount / 100 });
   };
 </script>
 
@@ -63,7 +63,7 @@
                 </td>
                 <td class="p-3 text-sm">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    {currencyHelper.format(expense.amount)}
+                    {currencyHelper.format(expense.amount / 100)}
                   </p>
                 </td>
                 <td class="p-3 text-sm">
