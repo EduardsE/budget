@@ -3,38 +3,15 @@ import Router from "koa-router";
 import cors from "@koa/cors";
 import koaBody from "koa-body";
 
-import transactionService from "./services/Transaction";
+import transactionRouter from "routes/Transaction";
+import userRouter from "routes/User";
 
 const initKoa = async () => {
   const app = new Koa();
   const router = new Router();
 
-  router.get("/transaction", async (ctx, next) => {
-    const transactions = await transactionService.list();
-
-    ctx.body = {
-      transactions,
-    };
-  });
-
-  router.post("/transaction", async (ctx, next) => {
-    const transaction = await transactionService.create(ctx.request.body);
-
-    ctx.body = {
-      transaction,
-    };
-  });
-
-  router.patch("/transaction/:id", async (ctx, next) => {
-    const transaction = await transactionService.update(
-      +ctx.params.id,
-      ctx.request.body
-    );
-
-    ctx.body = {
-      transaction,
-    };
-  });
+  router.use("/transaction", transactionRouter.routes());
+  router.use("/user", userRouter.routes());
 
   app
     .use(cors({ credentials: true, origin: "http://localhost:5000" }))

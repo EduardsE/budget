@@ -27,6 +27,10 @@ class TransactionService {
       data: transactionData,
     });
   }
+
+  public async listGrouped() {
+    const result = await prisma.$queryRaw("SELECT * FROM User;");
+  }
 }
 
 export default new TransactionService();
