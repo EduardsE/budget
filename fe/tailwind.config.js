@@ -11,6 +11,9 @@ module.exports = {
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
+      backgroundImage: (theme) => ({
+        auth: "url('/images/auth-bg.jpg')",
+      }),
     },
   },
   variants: {},

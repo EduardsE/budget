@@ -26,6 +26,12 @@
       "types/*": [
         "./src/types/*"
       ],
+      "pages/*": [
+        "./src/pages/*"
+      ],
+      "svg/*": [
+        "./src/svg/*"
+      ],
     }
   }
 }

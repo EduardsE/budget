@@ -8,6 +8,8 @@ import postcss from "postcss";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 import path from "path";
+import image from "svelte-image";
+import copy from "rollup-plugin-copy";
 
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
@@ -24,8 +26,13 @@ export default [
       file: "public/bundle.js",
     },
     plugins: [
+      copy({
+        targets: [{ src: "./src/images", dest: "./public" }],
+      }),
+
       svelte({
         preprocess: sveltePreprocess({
+          ...image({ publicDir: "./public" }),
           postcss: postcss({
             plugins: [tailwindcss, autoprefixer],
           }),
@@ -62,6 +69,14 @@ export default [
           {
             find: "types",
             replacement: path.resolve(__dirname, "src/types"),
+          },
+          {
+            find: "pages",
+            replacement: path.resolve(__dirname, "src/pages"),
+          },
+          {
+            find: "svg",
+            replacement: path.resolve(__dirname, "src/svg"),
           },
         ],
       }),

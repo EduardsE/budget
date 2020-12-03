@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AppBarLink from "./components/AppBarLink.svelte";
+  import AppBarLink from "../components/AppBarLink.svelte";
 
   let open = false;
 </script>

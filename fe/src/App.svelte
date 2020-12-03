@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { Router, Link, Route } from "svelte-routing";
+  import { Router, Route } from "svelte-routing";
 
   import Tailwindcss from "./Tailwindcss.svelte";
 
-  import AppBar from "./AppBar.svelte";
   import Dashboard from "./Dashboard.svelte";
 
   import Transactions from "./pages/Transactions/index.svelte";
   // import Users from "./pages/User.svelte";
+  import Auth from "pages/Auth/index.svelte";
+  import Authorized from "./layouts/Authorized.svelte";
 
   export let url = "";
 </script>
@@ -15,11 +16,17 @@
 <Tailwindcss />
 
 <Router {url}>
-  <AppBar />
+  <Route path="/auth" component={Auth} />
 
-  <div class="py-6 container mx-auto">
-    <Route path="transactions" component={Transactions} />
-    <!-- <Route path="users" component={Users} /> -->
-    <Route path="/" component={Dashboard} />
-  </div>
+  <Route path="transactions">
+    <Authorized>
+      <Transactions />
+    </Authorized>
+  </Route>
+  <Route path="/">
+    <Authorized>
+      <Dashboard />
+    </Authorized>
+  </Route>
+  <!-- <Route path="users" component={Users} /> -->
 </Router>
