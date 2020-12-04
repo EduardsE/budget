@@ -1,7 +1,10 @@
+import prisma from "config/prisma";
 import Router from "koa-router";
 import fetch from "node-fetch";
 
-import userService from "services/User";
+import services from "services/index";
+
+import { Google } from "src/types/Google";
 
 const router = new Router();
 
@@ -16,7 +19,7 @@ interface CallbackResponse {
 }
 
 router.get("/google/callback", async (ctx, next) => {
-  const { code, scope } = ctx.query;
+  const { code } = ctx.query;
 
   const data = {
     code,
@@ -39,12 +42,17 @@ router.get("/google/callback", async (ctx, next) => {
     },
   });
 
-  const userInfo = await userInfoRes.json();
-  console.log(userInfo);
+  const {
+    name,
+    picture,
+    id,
+    email,
+  }: Google.UserInfo = await userInfoRes.json();
 
-  ctx.body = {
-    // users,
-  };
+  const upsertData = { name, email, picture, googleId: id };
+  await services.user.onAuth(upsertData);
+
+  ctx.redirect("http://localhost:4200/transactions");
 });
 
 export default router;

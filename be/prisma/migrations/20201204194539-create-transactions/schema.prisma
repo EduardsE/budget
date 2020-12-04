@@ -13,37 +13,40 @@ enum TransactionType {
 }
 
 model Transaction {
-  id     Int             @id @default(autoincrement())
+  id     String          @id @default(uuid())
   title  String
   date   DateTime
   type   TransactionType
   amount Int
 
-  categoryId Int
+  categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime?
+  updatedAt DateTime? @updatedAt
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
+  id    String @id @default(uuid())
   title String
 
   Transaction Transaction[]
 
-  userId Int?
-  User   User? @relation(fields: [userId], references: [id])
+  userId String?
+  User   User?   @relation(fields: [userId], references: [id])
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime?
+  updatedAt DateTime? @updatedAt
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  username   String
+  id         String     @id @default(uuid())
+  email      String     @unique
+  name       String?
+  picture    String?
+  googleId   String?
   categories Category[]
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime?
+  updatedAt DateTime? @updatedAt
 }
