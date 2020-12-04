@@ -1,6 +1,6 @@
-import prisma from "config/prisma";
 import Router from "koa-router";
 import fetch from "node-fetch";
+import jwt from "jsonwebtoken";
 
 import services from "services/index";
 
@@ -52,7 +52,14 @@ router.get("/google/callback", async (ctx, next) => {
   const upsertData = { name, email, picture, googleId: id };
   await services.user.onAuth(upsertData);
 
-  ctx.redirect("http://localhost:4200/transactions");
+  const token = jwt.sign(
+    {
+      data: { email, name, picture },
+    },
+    process.env.JWT_SECRET!
+  );
+
+  ctx.redirect(`http://localhost:4200/auth/callback?token=${token}`);
 });
 
 export default router;

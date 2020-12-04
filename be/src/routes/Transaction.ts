@@ -22,7 +22,7 @@ router.post("/", async (ctx, next) => {
 
 router.patch("/:id", async (ctx, next) => {
   const transaction = await transactionService.update(
-    +ctx.params.id,
+    ctx.params.id,
     ctx.request.body
   );
 

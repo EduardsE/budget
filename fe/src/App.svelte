@@ -9,6 +9,7 @@
   // import Users from "./pages/User.svelte";
   import Auth from "pages/Auth/index.svelte";
   import Authorized from "./layouts/Authorized.svelte";
+  import Loading from "pages/Auth/Loading.svelte";
 
   export let url = "";
 </script>
@@ -16,6 +17,7 @@
 <Tailwindcss />
 
 <Router {url}>
+  <Route path="/auth/callback" component={Loading} />
   <Route path="/auth" component={Auth} />
 
   <Route path="transactions">
