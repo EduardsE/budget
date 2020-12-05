@@ -1,3 +1,5 @@
+import { navigate } from "svelte-routing";
+
 const http = async (
   url: string,
   options?: { method: "POST" | "GET" | "PATCH"; body: string }
@@ -13,6 +15,11 @@ const http = async (
     ...options,
     headers,
   });
+
+  if (res.status === 401) {
+    navigate("/auth");
+    throw new Error("Unauthorized");
+  }
 
   if (res.ok) {
     return res.json();
