@@ -78,6 +78,10 @@ export default [
             find: "svg",
             replacement: path.resolve(__dirname, "src/svg"),
           },
+          {
+            find: "directives",
+            replacement: path.resolve(__dirname, "src/directives"),
+          },
         ],
       }),
 

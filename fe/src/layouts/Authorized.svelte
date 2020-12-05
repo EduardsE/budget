@@ -1,8 +1,8 @@
 <script>
-  import AppBar from "./AppBar.svelte";
+  import Nav from "./Nav/index.svelte";
 </script>
 
-<div class="py-6 container mx-auto">
-  <AppBar />
+<Nav />
+<div class="container mx-auto">
   <slot />
 </div>
