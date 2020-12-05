@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "3.1.0",
-    "@prisma/client": "2.10.1",
+    "@prisma/client": "2.12.1",
     "apollo": "2.31.0",
     "apollo-errors": "1.9.0",
     "apollo-server": "2.19.0",

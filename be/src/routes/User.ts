@@ -12,4 +12,12 @@ router.get("/", async (ctx, next) => {
   };
 });
 
+router.get("/me", async (ctx, next) => {
+  const user = await userService.me(ctx.state.user.id);
+
+  ctx.body = {
+    user,
+  };
+});
+
 export default router;

@@ -35,6 +35,15 @@ class UserService {
       update: data,
     });
   }
+
+  public async me(id: User["id"]) {
+    return await prisma.user.findUnique({
+      where: { id },
+      include: {
+        categories: true,
+      },
+    });
+  }
 }
 
 export default new UserService();

@@ -1,34 +1,56 @@
 <script lang="ts">
-  import { Router, Route } from "svelte-routing";
+  import { onMount } from "svelte";
+  import { Router, Route, links } from "svelte-routing";
 
   import Tailwindcss from "./Tailwindcss.svelte";
 
   import Dashboard from "./Dashboard.svelte";
 
+  import http from "src/lib/http";
+
   import Transactions from "./pages/Transactions/index.svelte";
-  // import Users from "./pages/User.svelte";
   import Auth from "pages/Auth/index.svelte";
   import Authorized from "./layouts/Authorized.svelte";
   import Loading from "pages/Auth/Loading.svelte";
 
-  export let url = "";
+  import config from "config/index";
+
+  import { user as userStore } from "stores/user";
+  import { list as categoryList } from "stores/category";
+
+  onMount(async () => {
+    if (window.location.href === `${config.BASE_URL}/auth`) return;
+
+    const { user } = await http("user/me");
+    const { categories, ...rest } = user;
+    userStore.set(rest);
+    categoryList.set(categories);
+  });
 </script>
 
+<style>
+  .background {
+    z-index: -1;
+  }
+</style>
+
 <Tailwindcss />
+<div class="w-screen h-screen absolute bg-gray-100 background" />
 
-<Router {url}>
-  <Route path="/auth/callback" component={Loading} />
-  <Route path="/auth" component={Auth} />
+<div use:links>
+  <Router>
+    <Route path="/auth/callback" component={Loading} />
+    <Route path="/auth" component={Auth} />
 
-  <Route path="transactions">
-    <Authorized>
-      <Transactions />
-    </Authorized>
-  </Route>
-  <Route path="/">
-    <Authorized>
-      <Dashboard />
-    </Authorized>
-  </Route>
-  <!-- <Route path="users" component={Users} /> -->
-</Router>
+    <Route path="transactions">
+      <Authorized>
+        <Transactions />
+      </Authorized>
+    </Route>
+    <Route path="/">
+      <Authorized>
+        <Dashboard />
+      </Authorized>
+    </Route>
+  </Router>
+</div>

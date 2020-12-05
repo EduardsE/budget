@@ -1,8 +1,4 @@
-import {
-  Transaction,
-  TransactionCreateInput,
-  TransactionUpdateInput,
-} from "@prisma/client";
+import { Category, Prisma, Transaction } from "@prisma/client";
 import prisma from "config/prisma";
 
 class TransactionService {
@@ -10,21 +6,45 @@ class TransactionService {
     return await prisma.transaction.findMany();
   }
 
-  public async create(transactionData: TransactionCreateInput) {
+  public async create(
+    transactionData: Prisma.TransactionCreateWithoutCategoryInput & {
+      categoryId: Category["id"];
+    }
+  ) {
+    const { categoryId, ...rest } = transactionData;
+
     return await prisma.transaction.create({
-      data: transactionData,
+      data: {
+        ...rest,
+        category: {
+          connect: {
+            id: categoryId,
+          },
+        },
+      },
     });
   }
 
   public async update(
     id: Transaction["id"],
-    transactionData: TransactionUpdateInput
+    transactionData: Prisma.TransactionUpdateInput & {
+      categoryId: Category["id"];
+    }
   ) {
+    const { categoryId, ...rest } = transactionData;
+
     return await prisma.transaction.update({
       where: {
         id,
       },
-      data: transactionData,
+      data: {
+        ...rest,
+        category: {
+          connect: {
+            id: categoryId,
+          },
+        },
+      },
     });
   }
 

@@ -5,17 +5,12 @@
   import Button from "components/Button.svelte";
   import TransactionType from "components/TransactionType.svelte";
 
-  import { Category } from "constants/Category";
+  import { list as categories } from "stores/category";
 
-  import {
-    form as formData,
-    reset,
-    list,
-    upsertOpen,
-  } from "stores/transactions";
+  import { form as formData, list } from "stores/transactions";
   import http from "src/lib/http";
 
-  export let onClose;
+  export let onClose: () => void;
 
   const currencySymbols = {
     EUR: "€",
@@ -55,6 +50,7 @@
   const onCreate = async () => {
     try {
       const { amount, ...rest } = $formData;
+      console.log(rest);
 
       const { transaction } = await http("transaction", {
         method: "POST",
@@ -70,6 +66,10 @@
       console.error(error);
     }
   };
+
+  if (!$formData.categoryId) {
+    formData.update((prev) => ({ ...prev, categoryId: $categories[0].id }));
+  }
 </script>
 
 <div class="p-4">
@@ -123,10 +123,10 @@
           class="block text-sm font-medium leading-5 text-gray-700">Category</label>
         <select
           id="category"
-          bind:value={$formData.category}
+          bind:value={$formData.categoryId}
           class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-          {#each Object.entries(Category) as [value, label]}
-            <option {label}>{label}</option>
+          {#each $categories as { id, title }}
+            <option value={id}>{title}</option>
           {/each}
         </select>
       </div>

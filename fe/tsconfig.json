@@ -9,6 +9,8 @@
     "public/*"
   ],
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "components/*": [
@@ -34,6 +36,9 @@
       ],
       "directives/*": [
         "./src/directives/*"
+      ],
+      "config/*": [
+        "./src/config/*"
       ],
     }
   }

@@ -10,6 +10,8 @@ import autoprefixer from "autoprefixer";
 import path from "path";
 import image from "svelte-image";
 import copy from "rollup-plugin-copy";
+import replace from "@rollup/plugin-replace";
+import json from "@rollup/plugin-json";
 
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
@@ -82,6 +84,10 @@ export default [
             find: "directives",
             replacement: path.resolve(__dirname, "src/directives"),
           },
+          {
+            find: "config",
+            replacement: path.resolve(__dirname, "src/config"),
+          },
         ],
       }),
 
@@ -97,6 +103,12 @@ export default [
       typescript({
         sourceMap: isDev,
         inlineSources: isDev,
+      }),
+
+      json(),
+
+      replace({
+        "process.env": isDev ? '"dev"' : '"prod"',
       }),
 
       // To create index.html in public

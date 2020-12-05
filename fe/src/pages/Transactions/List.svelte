@@ -5,6 +5,8 @@
 
   import Button from "components/Button.svelte";
 
+  import { listById } from "stores/category";
+
   import { form, list, upsertOpen } from "stores/transactions";
   import currencyHelper from "src/helpers/currency";
 
@@ -77,7 +79,8 @@
                     <span
                       aria-hidden
                       class="absolute inset-0 bg-red-200 opacity-50 rounded-full" />
-                    <span class="relative">{expense.category}</span>
+                    <span
+                      class="relative">{$listById[expense.categoryId].title}</span>
                   </span>
                 </td>
                 <td

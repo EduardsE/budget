@@ -1,13 +1,14 @@
 import { TransactionType } from "src/types/Transaction";
+import { Category } from "types/Category";
+
 import { writable } from "svelte/store";
-import { Category } from "../constants/Category";
 
 interface FormData {
   id?: number;
   amount: number;
   date: Date;
   title: string;
-  category: Category;
+  categoryId: Category["id"];
   type: TransactionType;
 }
 
@@ -15,7 +16,7 @@ const defaultValues: FormData = {
   amount: null,
   date: new Date(),
   title: "",
-  category: Category.FOOD,
+  categoryId: null,
   type: TransactionType.EXPENSE,
 };
 

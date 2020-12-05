@@ -50,11 +50,11 @@ router.get("/google/callback", async (ctx, next) => {
   }: Google.UserInfo = await userInfoRes.json();
 
   const upsertData = { name, email, picture, googleId: id };
-  await services.user.onAuth(upsertData);
+  const user = await services.user.onAuth(upsertData);
 
   const token = jwt.sign(
     {
-      data: { email, name, picture },
+      id: user.id,
     },
     process.env.JWT_SECRET!
   );
