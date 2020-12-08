@@ -12,6 +12,7 @@
   import Auth from "pages/Auth/index.svelte";
   import Authorized from "./layouts/Authorized.svelte";
   import Loading from "pages/Auth/Loading.svelte";
+  import TransactionNav from "./pages/Transactions/Nav.svelte";
 
   import config from "config/index";
 
@@ -44,7 +45,12 @@
 
     <Route path="transactions">
       <Authorized>
-        <Transactions />
+        <div slot="nav">
+          <TransactionNav />
+        </div>
+        <div slot="content">
+          <Transactions />
+        </div>
       </Authorized>
     </Route>
     <Route path="/">

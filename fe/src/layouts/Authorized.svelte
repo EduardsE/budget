@@ -3,6 +3,7 @@
 </script>
 
 <Nav />
+<slot name="nav" />
 <div class="container mx-auto">
-  <slot />
+  <slot name="content" />
 </div>
