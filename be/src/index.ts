@@ -7,9 +7,10 @@ import cors from "@koa/cors";
 import koaBody from "koa-body";
 import jwt from "koa-jwt";
 
+import categoryRouter from "routes/Category";
+import oauthRouter from "routes/OAuth";
 import transactionRouter from "routes/Transaction";
 import userRouter from "routes/User";
-import oauthRouter from "routes/OAuth";
 
 const initKoa = async () => {
   const app = new Koa();
@@ -18,6 +19,7 @@ const initKoa = async () => {
 
   publicRouter.use("/oauth", oauthRouter.routes());
   router.use("/transaction", transactionRouter.routes());
+  router.use("/category", categoryRouter.routes());
   router.use("/user", userRouter.routes());
 
   app

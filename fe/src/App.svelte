@@ -8,11 +8,16 @@
 
   import http from "src/lib/http";
 
-  import Transactions from "./pages/Transactions/index.svelte";
   import Auth from "pages/Auth/index.svelte";
   import Authorized from "./layouts/Authorized.svelte";
+
+  import Categories from "./pages/Categories/index.svelte";
+  import CategoriesNav from "./pages/Categories/Nav.svelte";
+
   import Loading from "pages/Auth/Loading.svelte";
+
   import TransactionNav from "./pages/Transactions/Nav.svelte";
+  import Transactions from "./pages/Transactions/index.svelte";
 
   import config from "config/index";
 
@@ -50,6 +55,16 @@
         </div>
         <div slot="content">
           <Transactions />
+        </div>
+      </Authorized>
+    </Route>
+    <Route path="categories">
+      <Authorized>
+        <div slot="nav">
+          <CategoriesNav />
+        </div>
+        <div slot="content">
+          <Categories />
         </div>
       </Authorized>
     </Route>

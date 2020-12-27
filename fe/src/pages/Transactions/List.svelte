@@ -1,13 +1,17 @@
 <script lang="ts">
   import format from "date-fns/esm/format";
+
   import type { Transaction } from "types/Transaction";
   import { TransactionType } from "types/Transaction";
 
   import Button from "components/Button.svelte";
+  import CategoryBadge from "components/CategoryBadge.svelte";
+
+  import PlusIcon from "svg/Plus.svelte";
 
   import { listById } from "stores/category";
-
   import { form, list, upsertOpen } from "stores/transactions";
+
   import currencyHelper from "src/helpers/currency";
 
   // https://tailwindcomponents.com/component/table-responsive-with-filters
@@ -23,6 +27,12 @@
   const onEdit = ({ date, amount, ...rest }: Transaction) => {
     upsertOpen.set(true);
     form.set({ ...rest, date: new Date(date), amount: amount / 100 });
+  };
+
+  const getCategory = (transaction: Transaction) => {
+    if ($listById && $listById[transaction.categoryId]) {
+      return $listById[transaction.categoryId];
+    }
   };
 </script>
 
@@ -59,17 +69,7 @@
         {type === TransactionType.EXPENSE ? 'Expenses' : 'Income'}
       </h2>
       <Button on:click={onAdd}>
-        <svg
-          class="-ml-1 mr-2 h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-        </svg>
+        <PlusIcon />
         Add
       </Button>
     </div>
@@ -106,14 +106,7 @@
                 </p>
               </td>
               <td class="p-3 text-sm">
-                <span
-                  class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight category-wrap">
-                  <span
-                    aria-hidden
-                    class="absolute inset-0 bg-red-200 opacity-50 rounded-full" />
-                  <span
-                    class="relative category whitespace-nowrap">{$listById && $listById[expense.categoryId] && $listById[expense.categoryId].title}</span>
-                </span>
+                <CategoryBadge category={getCategory(expense)} wrapped />
               </td>
               <td
                 class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">

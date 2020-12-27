@@ -4,6 +4,7 @@
   const links = [
     { label: "Dashboard", link: "/" },
     { label: "Transactions", link: "/transactions" },
+    { label: "Categories", link: "/categories" },
   ];
 </script>
 

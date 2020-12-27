@@ -1,22 +1,4 @@
-export enum Category {
-  ALCOHOL = "Alcohol",
-  CLOTHES = "Clothes",
-  COMMUNICATION = "Communication",
-  ENTERTAINMENT = "Entertainment",
-  FITNESS = "Fitness",
-  FOOD = "Food",
-  GIFTS = "Gifts",
-  HEALTH = "Health",
-  HOME_IMPROVEMENT = "Home Improvement",
-  INTERNET_SERVICES = "Internet Services",
-  INVESTMENT = "Investment",
-  MORTGAGE = "Mortgage",
-  OTHER = "Other",
-  PERSONAL = "Personal",
-  TRANSPORTATION = "Transportation",
-  TRAVEL = "Travel",
-  UTILITIES = "Utilities",
-}
+import { Category } from "types/Category";
 
 export enum TransactionType {
   INCOME = "INCOME",

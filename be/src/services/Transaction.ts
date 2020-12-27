@@ -2,8 +2,10 @@ import { Category, Prisma, Transaction } from "@prisma/client";
 import prisma from "config/prisma";
 
 class TransactionService {
+  private model = prisma.transaction;
+
   public async list() {
-    return await prisma.transaction.findMany();
+    return await this.model.findMany();
   }
 
   public async create(
@@ -13,7 +15,7 @@ class TransactionService {
   ) {
     const { categoryId, ...rest } = transactionData;
 
-    return await prisma.transaction.create({
+    return await this.model.create({
       data: {
         ...rest,
         category: {
@@ -33,7 +35,7 @@ class TransactionService {
   ) {
     const { categoryId, ...rest } = transactionData;
 
-    return await prisma.transaction.update({
+    return await this.model.update({
       where: {
         id,
       },
