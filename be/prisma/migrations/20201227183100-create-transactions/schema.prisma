@@ -27,9 +27,10 @@ model Transaction {
 }
 
 model Category {
-  id    String @id @default(uuid())
-  title String
-  color String @default("DDD6FE")
+  id              String @id @default(uuid())
+  title           String
+  colorBackground String
+  colorText       String
 
   Transaction Transaction[]
 

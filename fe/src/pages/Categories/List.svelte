@@ -15,19 +15,8 @@
   th:nth-of-type(4) {
     width: 134px;
   }
-  td .category {
-    text-overflow: ellipsis;
-    max-width: 100%;
-    white-space: nowrap;
-  }
   th:nth-of-type(5) {
     width: 53px;
-  }
-  .category-wrap {
-    max-width: 110px;
-    display: inherit;
-    text-overflow: ellipsis;
-    overflow: hidden;
   }
 </style>
 
@@ -49,7 +38,7 @@
           {#each $list as category}
             <tr class="bg-white">
               <td class="p-3 text-sm">
-                <CategoryBadge {category} />
+                <CategoryBadge {category} size="large" />
               </td>
             </tr>
           {/each}

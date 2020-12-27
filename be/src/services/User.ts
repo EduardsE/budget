@@ -1,5 +1,7 @@
 import { User } from "@prisma/client";
+
 import prisma from "config/prisma";
+import { DEFAULT_CATEGORIES } from "src/constants/Category";
 
 class UserService {
   public async list() {
@@ -7,21 +9,6 @@ class UserService {
   }
 
   public async onAuth(data: Pick<User, "email"> & Partial<User>) {
-    const categories = [
-      "Clothes",
-      "Entertainment",
-      "Fitness",
-      "Food",
-      "Gifts",
-      "Health",
-      "Home Improvement",
-      "Other",
-      "Personal",
-      "Transportation",
-      "Travel",
-      "Utilities",
-    ];
-
     return await prisma.user.upsert({
       where: {
         email: data.email,
@@ -29,7 +16,7 @@ class UserService {
       create: {
         ...data,
         categories: {
-          create: categories.map((cat) => ({ title: cat })),
+          create: DEFAULT_CATEGORIES,
         },
       },
       update: data,

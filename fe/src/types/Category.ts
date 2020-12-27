@@ -1,7 +1,8 @@
 export interface Category {
   id: string;
   title: string;
-  color: string;
+  colorText: string;
+  colorBackground: string;
   userId: string | null;
   createdAt: Date;
   updatedAt: Date | null;
