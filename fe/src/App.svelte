@@ -1,33 +1,33 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { Router, Route, links } from "svelte-routing";
+  import { onMount } from 'svelte';
+  import { Router, Route, links } from 'svelte-routing';
 
-  import Tailwindcss from "./Tailwindcss.svelte";
+  import Tailwindcss from './Tailwindcss.svelte';
 
-  import Dashboard from "./Dashboard.svelte";
+  import Dashboard from './Dashboard.svelte';
 
-  import http from "src/lib/http";
+  import http from 'src/lib/http';
 
-  import Auth from "pages/Auth/index.svelte";
-  import Authorized from "./layouts/Authorized.svelte";
+  import Auth from 'pages/Auth/index.svelte';
+  import Authorized from './layouts/Authorized.svelte';
 
-  import Categories from "./pages/Categories/index.svelte";
-  import CategoriesNav from "./pages/Categories/Nav.svelte";
+  import Categories from './pages/Categories/index.svelte';
+  import CategoriesNav from './pages/Categories/Nav.svelte';
 
-  import Loading from "pages/Auth/Loading.svelte";
+  import Loading from 'pages/Auth/Loading.svelte';
 
-  import TransactionNav from "./pages/Transactions/Nav.svelte";
-  import Transactions from "./pages/Transactions/index.svelte";
+  import TransactionNav from './pages/Transactions/Nav.svelte';
+  import Transactions from './pages/Transactions/index.svelte';
 
-  import config from "config/index";
+  import config from 'config/index';
 
-  import { user as userStore } from "stores/user";
-  import { list as categoryList } from "stores/category";
+  import { user as userStore } from 'stores/user';
+  import { list as categoryList } from 'stores/category';
 
   onMount(async () => {
     if (window.location.href === `${config.BASE_URL}/auth`) return;
 
-    const { user } = await http("user/me");
+    const { user } = await http('user/me');
     const { categories, ...rest } = user;
     userStore.set(rest);
     categoryList.set(categories);
