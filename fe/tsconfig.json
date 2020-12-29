@@ -40,6 +40,9 @@
       "config/*": [
         "./src/config/*"
       ],
+      "lib/*": [
+        "./src/lib/*"
+      ],
     }
   }
 }

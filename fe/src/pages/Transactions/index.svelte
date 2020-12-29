@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import AddTransaction from "./Add/index.svelte";
+  import TransactionUpsert from "./Upsert/index.svelte";
 
   import { TransactionType } from "types/Transaction";
   import http from "src/lib/http";
@@ -19,5 +19,5 @@
 <div class="grid lg:grid-cols-2">
   <List type={TransactionType.INCOME} />
   <List type={TransactionType.EXPENSE} />
-  <AddTransaction />
+  <TransactionUpsert />
 </div>

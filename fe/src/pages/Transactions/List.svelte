@@ -46,19 +46,8 @@
   th:nth-of-type(4) {
     width: 134px;
   }
-  td .category {
-    text-overflow: ellipsis;
-    max-width: 100%;
-    white-space: nowrap;
-  }
   th:nth-of-type(5) {
     width: 53px;
-  }
-  .category-wrap {
-    max-width: 110px;
-    display: inherit;
-    text-overflow: ellipsis;
-    overflow: hidden;
   }
 </style>
 
@@ -106,7 +95,7 @@
                 </p>
               </td>
               <td class="p-3 text-sm">
-                <CategoryBadge category={getCategory(expense)} wrapped />
+                <CategoryBadge category={getCategory(expense)} />
               </td>
               <td
                 class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">

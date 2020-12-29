@@ -1,24 +1,17 @@
 <script lang="ts">
   import CategoryBadge from "components/CategoryBadge.svelte";
   import { list } from "stores/category";
+  import type { Category } from "types/Category";
 
-  const columns = ["Title"];
+  import { upsertOpen, form } from "stores/category.ts";
+
+  const columns = ["Title", ""];
+
+  const onEdit = (category: Category) => {
+    upsertOpen.set(true);
+    form.set(category);
+  };
 </script>
-
-<style>
-  th:nth-of-type(1) {
-    width: 100px;
-  }
-  th:nth-of-type(2) {
-    width: 84px;
-  }
-  th:nth-of-type(4) {
-    width: 134px;
-  }
-  th:nth-of-type(5) {
-    width: 53px;
-  }
-</style>
 
 <div class="container mx-auto px-4">
   <div class="py-8">
@@ -39,6 +32,12 @@
             <tr class="bg-white">
               <td class="p-3 text-sm">
                 <CategoryBadge {category} size="large" />
+              </td>
+              <td class="px-6 py-4 text-right text-sm leading-5 font-medium">
+                <a
+                  on:click={() => onEdit(category)}
+                  href={'#'}
+                  class="text-indigo-600 hover:text-indigo-900">Edit</a>
               </td>
             </tr>
           {/each}

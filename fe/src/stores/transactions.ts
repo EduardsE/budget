@@ -1,10 +1,10 @@
-import { TransactionType } from "src/types/Transaction";
-import { Category } from "types/Category";
+import { Transaction, TransactionType } from "src/types/Transaction";
+import type { Category } from "types/Category";
 
 import { writable } from "svelte/store";
 
 interface FormData {
-  id?: number;
+  id?: Transaction["id"];
   amount: number;
   date: Date;
   title: string;

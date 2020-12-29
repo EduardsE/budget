@@ -1,4 +1,4 @@
-import { Category } from "types/Category";
+import type { Category } from "types/Category";
 
 export interface User {
   id: string;

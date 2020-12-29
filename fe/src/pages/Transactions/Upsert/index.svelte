@@ -1,8 +1,8 @@
 <script>
   import { slide, fade } from "svelte/transition";
-  import AddTransactionForm from "./Form.svelte";
+  import TransactionUpsertForm from "./Form.svelte";
 
-  import { reset, upsertOpen } from "stores/transactions";
+  import { reset, upsertOpen, form } from "stores/transactions";
 
   const onClose = () => {
     upsertOpen.set(false);
@@ -47,11 +47,11 @@
             <header class="bg-teal-400">
               <div class="py-6 px-4 sm:px-6">
                 <h2 class="text-lg leading-7 font-medium text-white">
-                  New transaction
+                  {$form.id ? 'Edit transaction' : 'New transaction'}
                 </h2>
               </div>
             </header>
-            <AddTransactionForm {onClose} />
+            <TransactionUpsertForm {onClose} />
           </div>
         </div>
       </section>

@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import http from "src/lib/http";
+  import http from "lib/http";
+
+  import CategoryUpsert from "./Upsert/index.svelte";
 
   import { list } from "stores/category";
 
@@ -15,4 +17,5 @@
 
 <div>
   <List />
+  <CategoryUpsert />
 </div>

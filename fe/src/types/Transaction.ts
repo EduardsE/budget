@@ -1,4 +1,4 @@
-import { Category } from "types/Category";
+import type { Category } from "types/Category";
 
 export enum TransactionType {
   INCOME = "INCOME",
@@ -6,6 +6,7 @@ export enum TransactionType {
 }
 
 export interface Transaction {
+  id: string;
   type: TransactionType;
   date: Date;
   title: string;

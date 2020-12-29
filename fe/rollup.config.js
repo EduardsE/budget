@@ -88,6 +88,10 @@ export default [
             find: "config",
             replacement: path.resolve(__dirname, "src/config"),
           },
+          {
+            find: "lib",
+            replacement: path.resolve(__dirname, "src/lib"),
+          },
         ],
       }),
 
