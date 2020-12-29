@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PageTitle from "components/PageTitle.svelte";
+  import PageTitle from 'components/PageTitle.svelte';
 </script>
 
 <div class="bg-white">
@@ -171,11 +171,11 @@
           aria-labelledby="mobile-menu"
           role="menu">
           <a
-            href="#"
+            href={'#'}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             role="menuitem">Edit</a>
           <a
-            href="#"
+            href={'#'}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             role="menuitem">View</a>
         </div>
