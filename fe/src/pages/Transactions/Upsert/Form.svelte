@@ -1,23 +1,27 @@
 <script lang="ts">
-  import Datepicker from "svelte-calendar";
-  import format from "date-fns/format";
+  // import Datepicker from 'svelte-calendar';
+  // import format from 'date-fns/format';
 
-  import Button from "components/Button.svelte";
-  import TransactionType from "components/TransactionType.svelte";
+  import Button from 'components/Button.svelte';
+  import TransactionType from 'components/TransactionType.svelte';
+  import InputText from 'components/Form/InputText.svelte';
+  import Datepicker from 'components/Form/Datepicker.svelte';
+  import Label from 'components/Form/Label.svelte';
+  import Select from 'components/Form/Select.svelte';
 
-  import { list as categories } from "stores/category";
+  import { list as categories } from 'stores/category';
 
-  import { form as formData, list } from "stores/transactions";
-  import http from "src/lib/http";
+  import { form as formData, list } from 'stores/transactions';
+  import http from 'src/lib/http';
 
   export let onClose: () => void;
 
   const currencySymbols = {
-    EUR: "€",
-    USD: "$",
+    EUR: '€',
+    USD: '$',
   };
 
-  let currency = "EUR";
+  let currency = 'EUR';
 
   let formattedSelected: string;
 
@@ -26,7 +30,7 @@
       const { amount, id, ...rest } = $formData;
 
       const { transaction } = await http(`transaction/${id}`, {
-        method: "PATCH",
+        method: 'PATCH',
         body: JSON.stringify({
           ...rest,
           amount: amount * 100,
@@ -52,8 +56,8 @@
       const { amount, ...rest } = $formData;
       console.log(rest);
 
-      const { transaction } = await http("transaction", {
-        method: "POST",
+      const { transaction } = await http('transaction', {
+        method: 'POST',
         body: JSON.stringify({
           ...rest,
           amount: amount * 100,
@@ -79,9 +83,7 @@
         <TransactionType />
       </div>
       <div class="col-span-6">
-        <label
-          for="amount"
-          class="block text-sm leading-5 font-medium text-gray-700">Price</label>
+        <Label id="amount">Price</Label>
         <div class="mt-1 relative rounded-md shadow-sm">
           <div
             class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -108,43 +110,21 @@
       </div>
 
       <div class="col-span-6">
-        <label
-          for="title"
-          class="block text-sm font-medium leading-5 text-gray-700">Title</label>
-        <input
-          id="title"
-          bind:value={$formData.title}
-          class="form-input mt-1 block w-full py-2 px-3 sm:text-sm sm:leading-5" />
+        <Label id="title">Title</Label>
+        <InputText id="title" name="title" bind:value={$formData.title} />
       </div>
 
       <div class="col-span-6">
-        <label
-          for="category"
-          class="block text-sm font-medium leading-5 text-gray-700">Category</label>
-        <select
+        <Label id="category">Category</Label>
+        <Select
           id="category"
           bind:value={$formData.categoryId}
-          class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-          {#each $categories as { id, title }}
-            <option value={id}>{title}</option>
-          {/each}
-        </select>
+          options={$categories} />
       </div>
 
       <div class="col-span-6">
-        <label
-          for="date"
-          class="block text-sm font-medium leading-5 text-gray-700">Date</label>
-        <Datepicker
-          style="width: 100%"
-          bind:selected={$formData.date}
-          bind:formattedSelected
-          format={(date) => format(date, 'dd/MM/yyyy')}>
-          <input
-            id="date"
-            bind:value={formattedSelected}
-            class="form-input mt-1 block w-full py-2 px-3 sm:text-sm sm:leading-5" />
-        </Datepicker>
+        <Label id="date">Date</Label>
+        <Datepicker value={$formData.date} />
       </div>
     </div>
 

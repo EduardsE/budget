@@ -1,44 +1,46 @@
-import commonjs from "@rollup/plugin-commonjs";
-import svelte from "rollup-plugin-svelte";
-import resolve from "rollup-plugin-node-resolve";
-import livereload from "rollup-plugin-livereload";
-import html from "@rollup/plugin-html";
-import alias from "@rollup/plugin-alias";
-import postcss from "postcss";
-import tailwindcss from "tailwindcss";
-import autoprefixer from "autoprefixer";
-import path from "path";
-import image from "svelte-image";
-import copy from "rollup-plugin-copy";
-import replace from "@rollup/plugin-replace";
-import json from "@rollup/plugin-json";
+import commonjs from '@rollup/plugin-commonjs';
+import svelte from 'rollup-plugin-svelte';
+import resolve from 'rollup-plugin-node-resolve';
+import livereload from 'rollup-plugin-livereload';
+import html from '@rollup/plugin-html';
+import alias from '@rollup/plugin-alias';
+import postcss from 'postcss';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
+import path from 'path';
+import image from 'svelte-image';
+import copy from 'rollup-plugin-copy';
+import replace from '@rollup/plugin-replace';
+import json from '@rollup/plugin-json';
 
-import sveltePreprocess from "svelte-preprocess";
-import typescript from "@rollup/plugin-typescript";
+import sveltePreprocess from 'svelte-preprocess';
+import typescript from '@rollup/plugin-typescript';
 
 const isDev = true;
 
 export default [
   {
-    input: "src/main.ts",
+    input: 'src/main.ts',
     output: {
       sourcemap: true,
-      format: "iife",
-      name: "app",
-      file: "public/bundle.js",
+      format: 'iife',
+      name: 'app',
+      file: 'public/bundle.js',
     },
     plugins: [
       copy({
-        targets: [{ src: "./src/images", dest: "./public" }],
+        targets: [{ src: './src/images', dest: './public' }],
       }),
 
       svelte({
         preprocess: sveltePreprocess({
-          ...image({ publicDir: "./public" }),
+          ...image({ publicDir: './public' }),
           postcss: postcss({
             plugins: [tailwindcss, autoprefixer],
           }),
         }),
+
+        emitCss: false,
 
         // Extract CSS into a single bundled file (recommended).
         // See note below
@@ -46,58 +48,58 @@ export default [
           // creates `main.css` and `main.css.map`
           // using a falsy name will default to the bundle name
           // — pass `false` as the second argument if you don't want the sourcemap
-          css.write("main.css");
+          css.write('main.css');
         },
       }),
 
       alias({
         entries: [
           {
-            find: "components",
-            replacement: path.resolve(__dirname, "src/components"),
+            find: 'components',
+            replacement: path.resolve(__dirname, 'src/components'),
           },
           {
-            find: "constants",
-            replacement: path.resolve(__dirname, "src/constants"),
+            find: 'constants',
+            replacement: path.resolve(__dirname, 'src/constants'),
           },
           {
-            find: "gql",
-            replacement: path.resolve(__dirname, "src/gql"),
+            find: 'gql',
+            replacement: path.resolve(__dirname, 'src/gql'),
           },
           {
-            find: "stores",
-            replacement: path.resolve(__dirname, "src/stores"),
+            find: 'stores',
+            replacement: path.resolve(__dirname, 'src/stores'),
           },
           {
-            find: "types",
-            replacement: path.resolve(__dirname, "src/types"),
+            find: 'types',
+            replacement: path.resolve(__dirname, 'src/types'),
           },
           {
-            find: "pages",
-            replacement: path.resolve(__dirname, "src/pages"),
+            find: 'pages',
+            replacement: path.resolve(__dirname, 'src/pages'),
           },
           {
-            find: "svg",
-            replacement: path.resolve(__dirname, "src/svg"),
+            find: 'svg',
+            replacement: path.resolve(__dirname, 'src/svg'),
           },
           {
-            find: "directives",
-            replacement: path.resolve(__dirname, "src/directives"),
+            find: 'directives',
+            replacement: path.resolve(__dirname, 'src/directives'),
           },
           {
-            find: "config",
-            replacement: path.resolve(__dirname, "src/config"),
+            find: 'config',
+            replacement: path.resolve(__dirname, 'src/config'),
           },
           {
-            find: "lib",
-            replacement: path.resolve(__dirname, "src/lib"),
+            find: 'lib',
+            replacement: path.resolve(__dirname, 'src/lib'),
           },
         ],
       }),
 
       resolve({
         browser: true,
-        dedupe: ["svelte"],
+        dedupe: ['svelte'],
       }),
 
       // A Rollup plugin to convert CommonJS modules to ES6, so they can be
@@ -112,16 +114,16 @@ export default [
       json(),
 
       replace({
-        "process.env": isDev ? '"dev"' : '"prod"',
+        'process.env': isDev ? '"dev"' : '"prod"',
       }),
 
       // To create index.html in public
       html({
-        publicPath: "/",
+        publicPath: '/',
       }),
 
       livereload({
-        watch: "public/bundle.js",
+        watch: 'public/bundle.js',
         delay: 200,
       }),
     ],

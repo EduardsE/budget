@@ -1,15 +1,15 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   future: {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  purge: ["./src/**/*.svelte"],
+  purge: ['./src/**/*.svelte'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       backgroundImage: (theme) => ({
         auth: "url('/images/auth-bg.jpg')",
@@ -17,5 +17,5 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [require("@tailwindcss/ui")],
+  plugins: [require('@tailwindcss/ui'), require('@tailwindcss/forms')],
 };
