@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { COLOR_COMBINATIONS } from "constants/Category.ts";
+  import { COLOR_COMBINATIONS } from 'constants/Category.ts';
 
-  import Button from "components/Button.svelte";
+  import Button from 'components/Button.svelte';
+  import InputText from 'components/Form/InputText.svelte';
 
-  import { form as formData } from "stores/category";
+  import { form as formData } from 'stores/category';
   export let onClose: () => void;
 
   const onBadgeSelect = (colors) => {};
@@ -23,10 +24,7 @@
         <label
           for="title"
           class="block text-sm font-medium leading-5 text-gray-700">Title</label>
-        <input
-          id="title"
-          bind:value={$formData.title}
-          class="form-input mt-1 block w-full py-2 px-3 sm:text-sm sm:leading-5" />
+        <InputText id="title" bind:value={$formData.title} />
       </div>
       <div class="col-span-6">
         <label
