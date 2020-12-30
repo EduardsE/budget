@@ -1,7 +1,7 @@
 <script lang="ts">
   import ButtonSocial from './ButtonSocial.svelte';
 
-  import Facebook from 'svg/Auth/Facebook.svelte';
+  import Google from 'svg/Auth/Google.svelte';
   import Twitter from 'svg/Auth/Twitter.svelte';
   import Github from 'svg/Auth/Github.svelte';
   import LockIcon from 'svg/Lock.svelte';
@@ -11,7 +11,7 @@
 
   import { INPUT_STYLES } from 'components/Form/constants';
 
-  const socialButtons = [Facebook, Twitter, Github];
+  const socialButtons = [Google, Twitter, Github];
 </script>
 
 <div class="grid lg:grid-cols-2 xl:grid-cols-3 bg-auth bg-cover">
