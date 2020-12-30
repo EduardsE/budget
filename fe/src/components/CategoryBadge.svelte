@@ -3,6 +3,7 @@
 
   export let category: Category;
   export let size: 'small' | 'large' = 'small';
+  export let wrap: boolean = false;
 
   const smallClasses = 'text-xs';
   const largeClasses = 'text-sm large-padding';
@@ -30,6 +31,7 @@
 
 {#if category}
   <span
+    class:whitespace-nowrap={wrap}
     class={'px-2 inline-flex leading-5 font-semibold rounded-md ' + classes}
     style={`background-color: #${category.colorBackground}; color: #${category.colorText}`}>
     {category.title}

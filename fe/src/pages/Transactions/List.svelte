@@ -1,21 +1,21 @@
 <script lang="ts">
-  import format from "date-fns/esm/format";
+  import format from 'date-fns/esm/format';
 
-  import type { Transaction } from "types/Transaction";
-  import { TransactionType } from "types/Transaction";
+  import type { Transaction } from 'types/Transaction';
+  import { TransactionType } from 'types/Transaction';
 
-  import Button from "components/Button.svelte";
-  import CategoryBadge from "components/CategoryBadge.svelte";
+  import Button from 'components/Button.svelte';
+  import CategoryBadge from 'components/CategoryBadge.svelte';
 
-  import PlusIcon from "svg/Plus.svelte";
+  import PlusIcon from 'svg/Plus.svelte';
 
-  import { listById } from "stores/category";
-  import { form, list, upsertOpen } from "stores/transactions";
+  import { listById } from 'stores/category';
+  import { form, list, upsertOpen } from 'stores/transactions';
 
-  import currencyHelper from "src/helpers/currency";
+  import currencyHelper from 'src/helpers/currency';
 
   // https://tailwindcomponents.com/component/table-responsive-with-filters
-  const columns = ["Date", "Amount", "Title", "Category", ""];
+  const columns = ['Date', 'Amount', 'Title', 'Category', ''];
 
   export let type: TransactionType;
 
@@ -95,7 +95,7 @@
                 </p>
               </td>
               <td class="p-3 text-sm">
-                <CategoryBadge category={getCategory(expense)} />
+                <CategoryBadge wrap category={getCategory(expense)} />
               </td>
               <td
                 class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
