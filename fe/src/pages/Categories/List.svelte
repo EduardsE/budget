@@ -1,22 +1,27 @@
 <script lang="ts">
-  import CategoryBadge from "components/CategoryBadge.svelte";
-  import { list } from "stores/category";
-  import type { Category } from "types/Category";
+  import CategoryBadge from 'components/CategoryBadge.svelte';
+  import { list } from 'stores/category';
+  import type { Category } from 'types/Category';
 
-  import { upsertOpen, form } from "stores/category.ts";
+  import { upsertOpen, form } from 'stores/category.ts';
 
-  const columns = ["Title", ""];
+  const columns = ['Title', ''];
 
   const onEdit = (category: Category) => {
     upsertOpen.set(true);
-    form.set(category);
+    const { id, title, colorBackground, colorText } = category;
+    form.set({
+      id,
+      title,
+      color: JSON.stringify([colorBackground, colorText]),
+    });
   };
 </script>
 
 <div class="container mx-auto px-4">
   <div class="py-8">
-    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-      <table class="min-w-full leading-normal">
+    <div class="inline-block w-full shadow rounded-lg overflow-hidden">
+      <table class="w-full leading-normal">
         <thead>
           <tr>
             {#each columns as column}

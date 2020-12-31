@@ -1,8 +1,8 @@
 <script>
-  import CategoryUpsertForm from "./Form.svelte";
-  import Slideover from "components/Slidover.svelte";
+  import CategoryUpsertForm from './Form.svelte';
+  import Slideover from 'components/Slidover.svelte';
 
-  import { reset, upsertOpen, form } from "stores/category";
+  import { reset, upsertOpen, form } from 'stores/category';
 
   const onClose = () => {
     upsertOpen.set(false);

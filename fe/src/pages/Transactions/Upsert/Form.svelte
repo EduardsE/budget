@@ -38,13 +38,9 @@
       });
 
       list.update((transactions) =>
-        transactions.map((item) => {
-          if (item.id === id) {
-            return transaction;
-          }
-          return item;
-        })
+        transactions.map((item) => (item.id === id ? transaction : item))
       );
+
       onClose();
     } catch (error) {
       console.error(error);

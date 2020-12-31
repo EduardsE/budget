@@ -62,8 +62,8 @@
         Add
       </Button>
     </div>
-    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-      <table class="min-w-full leading-normal">
+    <div class="inline-block w-full shadow rounded-lg overflow-hidden">
+      <table class="w-full leading-normal">
         <thead>
           <tr>
             {#each columns as column}

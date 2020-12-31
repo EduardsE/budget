@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { slide, fade } from "svelte/transition";
-  import CloseIcon from "svg/Close.svelte";
+  import { slide, fade } from 'svelte/transition';
+  import CloseIcon from 'svg/Close.svelte';
 
   export let onClose: () => void;
 </script>
@@ -25,8 +25,7 @@
             <CloseIcon />
           </button>
         </div>
-        <div
-          class="h-full flex flex-col space-y-6 pb-6 bg-white shadow-xl overflow-y-scroll">
+        <div class="h-full flex flex-col space-y-6 pb-6 bg-white shadow-xl">
           <slot />
         </div>
       </div>

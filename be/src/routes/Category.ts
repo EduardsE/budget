@@ -12,4 +12,15 @@ router.get("/", async (ctx, next) => {
   };
 });
 
+router.patch("/:id", async (ctx, next) => {
+  const category = await categoryService.update(
+    ctx.params.id,
+    ctx.request.body
+  );
+
+  ctx.body = {
+    category,
+  };
+});
+
 export default router;

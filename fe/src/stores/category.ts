@@ -1,9 +1,9 @@
-import { derived, writable } from "svelte/store";
+import { derived, writable } from 'svelte/store';
 
-import type { Category } from "types/Category";
+import type { Category } from 'types/Category';
 
 export const list = writable<Category[]>([]);
-export const listById = derived<typeof list, Record<Category["id"], Category>>(
+export const listById = derived<typeof list, Record<Category['id'], Category>>(
   list,
   ($list) =>
     $list.reduce((acc, category) => ({ ...acc, [category.id]: category }), {})
@@ -12,14 +12,12 @@ export const listById = derived<typeof list, Record<Category["id"], Category>>(
 interface FormData {
   id?: string;
   title: string;
-  colorBackground: string;
-  colorText: string;
+  color: string;
 }
 
 const defaultValues: FormData = {
-  title: "",
-  colorBackground: "F9FAFB",
-  colorText: "1F2937",
+  title: '',
+  color: '',
 };
 
 export const upsertOpen = writable(false);
