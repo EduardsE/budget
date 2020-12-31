@@ -294,7 +294,7 @@
     {
       "tag": "CreateField",
       "model": "Category",
-      "field": "User",
+      "field": "user",
       "type": "User",
       "arity": "Optional"
     },
@@ -304,7 +304,7 @@
         "path": {
           "tag": "Field",
           "model": "Category",
-          "field": "User"
+          "field": "user"
         },
         "directive": "relation"
       }
@@ -316,7 +316,7 @@
         "path": {
           "tag": "Field",
           "model": "Category",
-          "field": "User"
+          "field": "user"
         },
         "directive": "relation"
       },
@@ -330,7 +330,7 @@
         "path": {
           "tag": "Field",
           "model": "Category",
-          "field": "User"
+          "field": "user"
         },
         "directive": "relation"
       },

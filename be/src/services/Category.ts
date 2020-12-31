@@ -1,4 +1,4 @@
-import { Category, Prisma } from "@prisma/client";
+import { Category, Prisma, User } from "@prisma/client";
 import prisma from "config/prisma";
 
 class CategoryService {
@@ -8,6 +8,25 @@ class CategoryService {
     return await this.model.findMany({
       orderBy: {
         title: "asc",
+      },
+    });
+  }
+
+  public async create(
+    data: Prisma.CategoryCreateInput & {
+      userId: User["id"];
+    }
+  ) {
+    const { userId, ...rest } = data;
+
+    return await this.model.create({
+      data: {
+        ...rest,
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
       },
     });
   }

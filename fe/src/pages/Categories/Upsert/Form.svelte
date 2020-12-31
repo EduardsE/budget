@@ -42,15 +42,38 @@
     }
   };
 
+  const onCreate = async () => {
+    try {
+      const { color, ...rest } = $formData;
+      const [colorBackground, colorText] = getColors();
+
+      const { category } = await http(`category`, {
+        method: 'POST',
+        body: JSON.stringify({
+          ...rest,
+          colorBackground,
+          colorText,
+        }),
+      });
+
+      list.update((categories) => [...categories, category]);
+      onClose();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const onSubmit = () => {
     if ($formData.id) {
       onUpdate();
     } else {
-      // onCreate()
+      onCreate();
     }
   };
 
   onMount(() => {
+    if (!$formData.id) return;
+
     // Try to match color presets
     const [colorBackground, colorText] = JSON.parse($formData.color);
 

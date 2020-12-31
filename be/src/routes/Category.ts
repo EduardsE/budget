@@ -12,6 +12,17 @@ router.get("/", async (ctx, next) => {
   };
 });
 
+router.post("/", async (ctx, next) => {
+  const category = await categoryService.create({
+    ...ctx.request.body,
+    userId: ctx.state.user.id,
+  });
+
+  ctx.body = {
+    category,
+  };
+});
+
 router.patch("/:id", async (ctx, next) => {
   const category = await categoryService.update(
     ctx.params.id,
