@@ -1,24 +1,24 @@
-import jwt from "jsonwebtoken";
-import Router from "koa-router";
-import fetch from "node-fetch";
+import jwt from 'jsonwebtoken';
+import Router from 'koa-router';
+import fetch from 'node-fetch';
 
-import services from "services/index";
+import services from 'services/index';
 
-import { Google } from "types/Google";
+import { Google } from 'types/Google';
 
 const router = new Router();
 
-const REDIRECT_URI = "http://localhost:3000/oauth/google/callback";
+const REDIRECT_URI = 'http://localhost:3000/oauth/google/callback';
 
 interface CallbackResponse {
   access_token: string;
   expires_in: number;
   scope: string; // "https://www.googleapis.com/auth/userinfo.profile"
-  token_type: "Bearer";
+  token_type: 'Bearer';
   id_token: string;
 }
 
-router.get("/google/callback", async (ctx, next) => {
+router.get('/google/callback', async (ctx, next) => {
   const { code } = ctx.query;
 
   const data = {
@@ -26,17 +26,17 @@ router.get("/google/callback", async (ctx, next) => {
     client_id: process.env.GOOGLE_CLIENT_ID,
     client_secret: process.env.GOOGLE_CLIENT_SECRET,
     redirect_uri: REDIRECT_URI,
-    grant_type: "authorization_code",
+    grant_type: 'authorization_code',
   };
 
-  const res = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
     body: JSON.stringify(data),
   });
 
   const json: CallbackResponse = await res.json();
 
-  const userInfoRes = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+  const userInfoRes = await fetch('https://www.googleapis.com/userinfo/v2/me', {
     headers: {
       Authorization: `Bearer ${json.access_token}`,
     },

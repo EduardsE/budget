@@ -94,6 +94,10 @@ export default [
             find: 'lib',
             replacement: path.resolve(__dirname, 'src/lib'),
           },
+          {
+            find: 'layouts',
+            replacement: path.resolve(__dirname, 'src/layouts'),
+          },
         ],
       }),
 

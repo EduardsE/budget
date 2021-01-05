@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Link from "./Link.svelte";
+  import Link from './Link.svelte';
 
   const links = [
-    { label: "Dashboard", link: "/" },
-    { label: "Transactions", link: "/transactions" },
-    { label: "Categories", link: "/categories" },
+    { label: 'Insights', link: '/' },
+    { label: 'Transactions', link: '/transactions' },
+    { label: 'Categories', link: '/categories' },
   ];
 </script>
 

@@ -4,20 +4,22 @@
 
   import Tailwindcss from './Tailwindcss.svelte';
 
-  import Dashboard from './Dashboard.svelte';
+  import Insights from './pages/Insights/index.svelte';
 
   import http from 'src/lib/http';
 
   import Auth from 'pages/Auth/index.svelte';
   import Authorized from './layouts/Authorized.svelte';
 
-  import Categories from './pages/Categories/index.svelte';
-  import CategoriesNav from './pages/Categories/Nav.svelte';
+  import Categories from 'pages/Categories/index.svelte';
+  import CategoriesNav from 'pages/Categories/Nav.svelte';
 
   import Loading from 'pages/Auth/Loading.svelte';
 
-  import TransactionNav from './pages/Transactions/Nav.svelte';
-  import Transactions from './pages/Transactions/index.svelte';
+  import TransactionNav from 'pages/Transactions/Nav.svelte';
+  import Transactions from 'pages/Transactions/index.svelte';
+
+  import InsightsNav from 'pages/Insights/Nav.svelte';
 
   import config from 'config/index';
 
@@ -70,7 +72,12 @@
     </Route>
     <Route path="/">
       <Authorized>
-        <Dashboard />
+        <div slot="nav">
+          <InsightsNav />
+        </div>
+        <div slot="content">
+          <Insights />
+        </div>
       </Authorized>
     </Route>
   </Router>
