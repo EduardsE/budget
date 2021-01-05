@@ -1,29 +1,29 @@
-import dotenv from "dotenv";
+import cors from '@koa/cors';
+import dotenv from 'dotenv';
+import Koa from 'koa';
+import koaBody from 'koa-body';
+import jwt from 'koa-jwt';
+import Router from 'koa-router';
+
+import categoryRouter from 'routes/Category';
+import oauthRouter from 'routes/OAuth';
+import transactionRouter from 'routes/Transaction';
+import userRouter from 'routes/User';
+
 dotenv.config();
-
-import Koa from "koa";
-import Router from "koa-router";
-import cors from "@koa/cors";
-import koaBody from "koa-body";
-import jwt from "koa-jwt";
-
-import categoryRouter from "routes/Category";
-import oauthRouter from "routes/OAuth";
-import transactionRouter from "routes/Transaction";
-import userRouter from "routes/User";
 
 const initKoa = async () => {
   const app = new Koa();
   const publicRouter = new Router();
   const router = new Router();
 
-  publicRouter.use("/oauth", oauthRouter.routes());
-  router.use("/transaction", transactionRouter.routes());
-  router.use("/category", categoryRouter.routes());
-  router.use("/user", userRouter.routes());
+  publicRouter.use('/oauth', oauthRouter.routes());
+  router.use('/transaction', transactionRouter.routes());
+  router.use('/category', categoryRouter.routes());
+  router.use('/user', userRouter.routes());
 
   app
-    .use(cors({ credentials: true, origin: "http://localhost:4200" }))
+    .use(cors({ credentials: true, origin: 'http://localhost:4200' }))
     .use(koaBody({ json: true }))
     .use(publicRouter.routes())
     .use(

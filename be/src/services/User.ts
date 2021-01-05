@@ -1,15 +1,18 @@
-import { User } from "@prisma/client";
+import { User } from '@prisma/client';
 
-import prisma from "config/prisma";
-import { DEFAULT_CATEGORIES } from "src/constants/Category";
+import prisma from 'config/prisma';
+
+import { DEFAULT_CATEGORIES } from 'constants/Category';
 
 class UserService {
+  constructor(private model = prisma.user) {}
+
   public async list() {
-    return await prisma.user.findMany();
+    return await this.model.findMany();
   }
 
-  public async onAuth(data: Pick<User, "email"> & Partial<User>) {
-    return await prisma.user.upsert({
+  public async onAuth(data: Pick<User, 'email'> & Partial<User>) {
+    return await this.model.upsert({
       where: {
         email: data.email,
       },
@@ -23,8 +26,8 @@ class UserService {
     });
   }
 
-  public async me(id: User["id"]) {
-    return await prisma.user.findUnique({
+  public async me(id: User['id']) {
+    return await this.model.findUnique({
       where: { id },
       include: {
         categories: true,

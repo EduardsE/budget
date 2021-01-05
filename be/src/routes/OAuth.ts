@@ -1,10 +1,10 @@
+import jwt from "jsonwebtoken";
 import Router from "koa-router";
 import fetch from "node-fetch";
-import jwt from "jsonwebtoken";
 
 import services from "services/index";
 
-import { Google } from "src/types/Google";
+import { Google } from "types/Google";
 
 const router = new Router();
 

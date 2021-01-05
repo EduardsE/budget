@@ -1,8 +1,9 @@
-import { Category, Prisma, Transaction } from "@prisma/client";
-import prisma from "config/prisma";
+import { Category, Prisma, Transaction } from '@prisma/client';
+
+import prisma from 'config/prisma';
 
 class TransactionService {
-  private model = prisma.transaction;
+  constructor(private model = prisma.transaction) {}
 
   public async list() {
     return await this.model.findMany();
@@ -10,7 +11,7 @@ class TransactionService {
 
   public async create(
     transactionData: Prisma.TransactionCreateWithoutCategoryInput & {
-      categoryId: Category["id"];
+      categoryId: Category['id'];
     }
   ) {
     const { categoryId, ...rest } = transactionData;
@@ -28,9 +29,9 @@ class TransactionService {
   }
 
   public async update(
-    id: Transaction["id"],
+    id: Transaction['id'],
     transactionData: Prisma.TransactionUpdateInput & {
-      categoryId: Category["id"];
+      categoryId: Category['id'];
     }
   ) {
     const { categoryId, ...rest } = transactionData;
@@ -51,7 +52,7 @@ class TransactionService {
   }
 
   public async listGrouped() {
-    const result = await prisma.$queryRaw("SELECT * FROM User;");
+    const result = await prisma.$queryRaw('SELECT * FROM User;');
   }
 }
 

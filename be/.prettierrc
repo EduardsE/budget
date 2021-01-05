@@ -1,0 +1,12 @@
+{
+  "singleQuote": true,
+  "importOrder": [
+    "^config/(.*)$",
+    "^routes/(.*)$",
+    "^constants/(.*)$",
+    "^services/(.*)$",
+    "^types/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true
+}
