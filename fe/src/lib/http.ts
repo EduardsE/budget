@@ -1,13 +1,13 @@
-import { navigate } from "svelte-routing";
+import { navigate } from 'svelte-routing';
 
-const http = async (
+const http = async <T>(
   url: string,
-  options?: { method: "POST" | "GET" | "PATCH"; body: string }
-) => {
-  const token = sessionStorage.getItem("token");
+  options?: { method: 'POST' | 'GET' | 'PATCH'; body: string }
+): Promise<T> => {
+  const token = sessionStorage.getItem('token');
 
   const headers = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
 
@@ -17,12 +17,12 @@ const http = async (
   });
 
   if (res.status === 401) {
-    navigate("/auth");
-    throw new Error("Unauthorized");
+    navigate('/auth');
+    throw new Error('Unauthorized');
   }
 
   if (res.ok) {
-    return res.json();
+    return res.json() as Promise<T>;
   }
 };
 

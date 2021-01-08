@@ -1,8 +1,41 @@
 <script lang="ts">
+  import Chart from './Chart.svelte';
+
+  import { onMount } from 'svelte';
+
+  import type { Category } from 'types/Category';
+  import http from 'lib/http';
+
+  import Overview from './Overview.svelte';
+
+  type Res = {
+    stats: {
+      categories: Array<Category & { amount: number }>;
+    };
+  };
+
+  let stats: Res['stats'];
+
+  onMount(async () => {
+    let res = await http<Res>('stats');
+    stats = res.stats;
+  });
 </script>
 
-<div>
-  Insights
-  <!-- <List />
-  <CategoryUpsert /> -->
-</div>
+{#if stats}
+  <div class="py-8">
+    <div class="grid grid-cols-2">
+      <!-- Expenses -->
+      <div class="container mx-auto px-4">
+        <Chart {stats} type="expenses" />
+        <Overview {stats} type="expenses" />
+      </div>
+
+      <!-- Income -->
+      <div class="container mx-auto px-4">
+        <Chart {stats} type="income" />
+        <Overview {stats} type="income" />
+      </div>
+    </div>
+  </div>
+{/if}

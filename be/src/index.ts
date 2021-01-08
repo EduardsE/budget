@@ -1,18 +1,18 @@
 /* eslint-disable import/first */
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-import Koa from 'koa';
-import Router from 'koa-router';
 import cors from '@koa/cors';
+import dotenv from 'dotenv';
+import Koa from 'koa';
 import koaBody from 'koa-body';
 import jwt from 'koa-jwt';
+import Router from 'koa-router';
 
 import categoryRouter from 'routes/Category';
 import oauthRouter from 'routes/OAuth';
+import statsRouter from 'routes/Stats';
 import transactionRouter from 'routes/Transaction';
 import userRouter from 'routes/User';
+
+dotenv.config();
 
 const initKoa = async () => {
   const app = new Koa();
@@ -23,6 +23,7 @@ const initKoa = async () => {
   router.use('/transaction', transactionRouter.routes());
   router.use('/category', categoryRouter.routes());
   router.use('/user', userRouter.routes());
+  router.use('/stats', statsRouter.routes());
 
   app
     .use(cors({ credentials: true, origin: 'http://localhost:4200' }))
