@@ -5,8 +5,9 @@
   import type { Category } from 'types/Category';
 
   import currencyHelper from 'src/helpers/currency';
+  import { TransactionType } from 'types/Transaction';
 
-  export let type: 'income' | 'expenses' = 'income';
+  export let type: TransactionType = TransactionType.INCOME;
   export let stats: {
     categories: Array<Category & { amount: number }>;
   };
@@ -15,21 +16,22 @@
     if (!stats) return;
 
     const { categories } = stats;
+    const items = categories.filter((category) => category.type === type);
 
     // @ts-ignore
-    var ctx = document.getElementById(type).getContext('2d');
+    const ctx = document.getElementById(type).getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
       data: {
         datasets: [
           {
-            data: categories.map(({ amount }) => amount / 100),
-            backgroundColor: categories.map(
+            data: items.map(({ amount }) => amount / 100),
+            backgroundColor: items.map(
               ({ colorBackground }) => `#${colorBackground}`
             ),
           },
         ],
-        labels: categories.map(({ title }) => title),
+        labels: items.map(({ title }) => title),
       },
       options: {
         legend: {

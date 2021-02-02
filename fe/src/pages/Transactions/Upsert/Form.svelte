@@ -1,7 +1,4 @@
 <script lang="ts">
-  // import Datepicker from 'svelte-calendar';
-  // import format from 'date-fns/format';
-
   import Button from 'components/Button.svelte';
   import TransactionType from 'components/TransactionType.svelte';
   import InputText from 'components/Form/InputText.svelte';

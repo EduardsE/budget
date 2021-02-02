@@ -1,8 +1,11 @@
-import { User } from '@prisma/client';
+import { TransactionType, User } from '@prisma/client';
 
 import prisma from 'config/prisma';
 
-import { DEFAULT_CATEGORIES } from 'constants/Category';
+import {
+  DEFAULT_INCOME_CATEGORIES,
+  DEFAULT_EXPENSE_CATEGORIES,
+} from 'constants/Category';
 
 class UserService {
   constructor(private model = prisma.user) {}
@@ -12,6 +15,16 @@ class UserService {
   }
 
   public async onAuth(data: Pick<User, 'email'> & Partial<User>) {
+    const incomeCategories = DEFAULT_INCOME_CATEGORIES.map((cat) => ({
+      ...cat,
+      type: TransactionType.INCOME,
+    }));
+
+    const expenseCategories = DEFAULT_EXPENSE_CATEGORIES.map((cat) => ({
+      ...cat,
+      type: TransactionType.EXPENSE,
+    }));
+
     return await this.model.upsert({
       where: {
         email: data.email,
@@ -19,7 +32,7 @@ class UserService {
       create: {
         ...data,
         categories: {
-          create: DEFAULT_CATEGORIES,
+          create: [...incomeCategories, ...expenseCategories],
         },
       },
       update: data,

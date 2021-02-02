@@ -1,6 +1,6 @@
 <script>
-  import queryString from "query-string";
-  import { navigate } from "svelte-routing";
+  import queryString from 'query-string';
+  import { navigate } from 'svelte-routing';
 
   export let location;
 
@@ -8,16 +8,20 @@
     let queryParams = queryString.parse(location.search);
 
     if (queryParams.token) {
-      sessionStorage.setItem("token", queryParams.token);
+      sessionStorage.setItem('token', queryParams.token);
 
       // For some reasong svelte-routing will fail to load the next page,
       // without setTimeout
       setTimeout(() => {
-        navigate("/transactions");
+        navigate('/');
       }, 0);
     }
   }
 </script>
+
+<div class="h-screen w-screen flex items-center justify-center">
+  <div class="lds-hourglass border-blue-500" />
+</div>
 
 <style>
   .lds-hourglass {
@@ -27,7 +31,7 @@
     height: 80px;
   }
   .lds-hourglass:after {
-    content: " ";
+    content: ' ';
     display: block;
     border-radius: 50%;
     width: 0;
@@ -52,7 +56,3 @@
     }
   }
 </style>
-
-<div class="h-screen w-screen flex items-center justify-center">
-  <div class="lds-hourglass border-blue-500" />
-</div>

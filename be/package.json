@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node-dev --no-notify --exit-child --rs --no-deps --respawn -r tsconfig-paths/register src/index.ts",
-    "prisma:migrate": "prisma migrate save --name createTransactions --experimental && prisma migrate up --experimental && prisma generate",
+    "prisma:migrate": "prisma migrate dev --preview-feature --name first",
     "prisma:generate": "prisma generate"
   },
   "author": "",
@@ -31,6 +31,7 @@
     "@prisma/cli": "2.14.0",
     "@trivago/prettier-plugin-sort-imports": "1.4.1",
     "@types/dotenv": "8.2.0",
+    "@types/faker": "5.1.5",
     "@types/jsonwebtoken": "8.5.0",
     "@types/koa": "2.11.6",
     "@types/koa-jwt": "3.3.0",
@@ -38,6 +39,7 @@
     "@types/koa__cors": "3.0.2",
     "@types/node-fetch": "2.5.7",
     "@types/ramda": "0.27.34",
+    "faker": "5.1.0",
     "onchange": "7.1.0",
     "ts-node-dev": "1.1.1",
     "typescript": "4.1.3"

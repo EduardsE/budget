@@ -5,10 +5,11 @@
   import type { Category } from 'types/Category';
   import currencyHelper from 'src/helpers/currency';
   import CategoryBadge from 'components/CategoryBadge.svelte';
+  import { TransactionType } from 'types/Transaction';
 
   const columns = ['Category', 'Amount'];
 
-  export let type: 'income' | 'expenses' = 'income';
+  export let type: TransactionType = TransactionType.INCOME;
 
   export let stats: {
     categories: Array<Category & { amount: number }>;
@@ -33,7 +34,7 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        {#each stats?.categories as category}
+        {#each stats?.categories.filter((category) => category.type === type) as category}
           <tr class="bg-white">
             <Cell>
               <CategoryBadge wrap {category} />

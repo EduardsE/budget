@@ -7,6 +7,7 @@
   import http from 'lib/http';
 
   import Overview from './Overview.svelte';
+  import { TransactionType } from 'types/Transaction';
 
   type Res = {
     stats: {
@@ -27,14 +28,14 @@
     <div class="grid grid-cols-2">
       <!-- Expenses -->
       <div class="container mx-auto px-4">
-        <Chart {stats} type="expenses" />
-        <Overview {stats} type="expenses" />
+        <Chart {stats} type={TransactionType.EXPENSE} />
+        <Overview {stats} type={TransactionType.EXPENSE} />
       </div>
 
       <!-- Income -->
       <div class="container mx-auto px-4">
-        <Chart {stats} type="income" />
-        <Overview {stats} type="income" />
+        <Chart {stats} type={TransactionType.INCOME} />
+        <Overview {stats} type={TransactionType.INCOME} />
       </div>
     </div>
   </div>

@@ -1,7 +1,11 @@
 import jwt from 'jsonwebtoken';
 import Router from 'koa-router';
 import fetch from 'node-fetch';
+import { seedTransactions } from 'src/db/seedTransactions';
 
+import prisma from 'config/prisma';
+
+import CategoryService from 'services/Category';
 import services from 'services/index';
 
 import { Google } from 'types/Google';
@@ -51,6 +55,17 @@ router.get('/google/callback', async (ctx, next) => {
 
   const upsertData = { name, email, picture, googleId: id };
   const user = await services.user.onAuth(upsertData);
+
+  const userWithCategories = await prisma.user.findFirst({
+    where: {
+      email: 'eduards@egle.me',
+    },
+    include: {
+      categories: true,
+    },
+  });
+
+  await seedTransactions(userWithCategories!);
 
   const token = jwt.sign(
     {

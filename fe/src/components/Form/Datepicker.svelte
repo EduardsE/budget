@@ -1,6 +1,6 @@
 <script lang="ts">
   import format from 'date-fns/format';
-  import Datepicker from 'svelte-calendar';
+  import Datepicker from '@beyonk/svelte-calendar';
 
   import { INPUT_STYLES } from './constants';
 

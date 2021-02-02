@@ -1,5 +1,5 @@
-declare module "svelte-calendar";
-declare module "svelte-routing";
+declare module 'svelte-routing';
+declare module '@beyonk/svelte-calendar';
 
 declare namespace svelte.JSX {
   interface HTMLAttributes<T> {
