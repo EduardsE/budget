@@ -1,16 +1,8 @@
 <script lang="ts">
-  import {
-    getDaysInMonth,
-    getMonth,
-    getYear,
-    startOfDay,
-    startOfMonth,
-  } from 'date-fns';
+  import { getDaysInMonth, getMonth, getYear, startOfMonth } from 'date-fns';
   import { enUS } from 'date-fns/locale';
   import { clickOutside } from 'directives/clickOutside';
-  import Authorized from 'layouts/Authorized.svelte';
-  import App from 'src/App.svelte';
-  import Bell from 'svg/Bell.svelte';
+  import { derived, writable } from 'svelte/store';
 
   import ChevronLeft from 'svg/ChevronLeft.svelte';
   import ChevronRight from 'svg/ChevronRight.svelte';
@@ -19,42 +11,50 @@
 
   const today = new Date();
 
+  const currentMonthYear = writable({
+    month: getMonth(today),
+    year: getYear(today),
+  });
+
   const handleClickOutside = () => {
     visible = false;
   };
 
-  let currentMonthYear = {
-    month: getMonth(today),
-    year: getYear(today),
-  };
-
   const weekdays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
-
-  const daysInMonth = getDaysInMonth(today);
-  const firstDayOfMonth = startOfMonth(today).getDay();
-
-  let dates = [...Array(31)].map((_, index) => index + 1);
-  dates = [...Array(firstDayOfMonth - 1), ...dates];
-
-  const changeMonth = (next: boolean) => {
-    const { month, year } = currentMonthYear;
-
-    if (next) {
-      currentMonthYear = {
-        month: month === 11 ? 0 : month + 1,
-        year: month === 11 ? year + 1 : year,
-      };
-    } else {
-      currentMonthYear = {
-        month: month === 0 ? 11 : month - 1,
-        year: month === 0 ? year - 1 : year,
-      };
-    }
-  };
 
   const onSelect = (date: Date) => {
     console.log(date);
   };
+
+  const changeMonth = (next: boolean) => {
+    const { month, year } = $currentMonthYear;
+
+    if (next) {
+      currentMonthYear.set({
+        month: month === 11 ? 0 : month + 1,
+        year: month === 11 ? year + 1 : year,
+      });
+    } else {
+      currentMonthYear.set({
+        month: month === 0 ? 11 : month - 1,
+        year: month === 0 ? year - 1 : year,
+      });
+    }
+  };
+
+  export const dates = derived(currentMonthYear, ($currentMonthYear) => {
+    const { month, year } = $currentMonthYear;
+    const date = new Date(year, month, 1);
+    const daysInMonth = getDaysInMonth(date);
+    const firstDayOfMonth = startOfMonth(date).getDay();
+
+    let dates = [...Array(daysInMonth)].map((_, index) => index + 1);
+
+    return [
+      ...Array(firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1),
+      ...dates,
+    ];
+  });
 </script>
 
 <div class="wrap" use:clickOutside on:clickOutside={handleClickOutside}>
@@ -68,8 +68,8 @@
           ><ChevronLeft width={12} height={12} /></button
         >
         <span class="currentMonthYear"
-          >{enUS.localize.month(currentMonthYear.month)}
-          {currentMonthYear.year}</span
+          >{enUS.localize.month($currentMonthYear.month)}
+          {$currentMonthYear.year}</span
         >
         <button on:click={() => changeMonth(true)}
           ><ChevronRight width={12} height={12} /></button
@@ -79,11 +79,11 @@
         {#each weekdays as day}
           <span class="date">{day}</span>
         {/each}
-        {#each dates as date}
+        {#each $dates as date}
           <button
             on:click={() =>
               onSelect(
-                new Date(currentMonthYear.year, currentMonthYear.month, date)
+                new Date($currentMonthYear.year, $currentMonthYear.month, date)
               )}
             class="date">{date ? date : ''}</button
           >
