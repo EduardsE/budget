@@ -1,0 +1,63 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "include": [
+    "src",
+    "types"
+  ],
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "baseUrl": "./",
+    /* paths - If you configure Snowpack import aliases, add them here. */
+    "paths": {
+      "components/*": [
+        "./src/components/*"
+      ],
+      "constants/*": [
+        "./src/constants/*"
+      ],
+      "gql/*": [
+        "./src/gql/*"
+      ],
+      "stores/*": [
+        "./src/stores/*"
+      ],
+      "types/*": [
+        "./src/types/*"
+      ],
+      "pages/*": [
+        "./src/pages/*"
+      ],
+      "svg/*": [
+        "./src/svg/*"
+      ],
+      "directives/*": [
+        "./src/directives/*"
+      ],
+      "config/*": [
+        "./src/config/*"
+      ],
+      "lib/*": [
+        "./src/lib/*"
+      ],
+      "layouts/*": [
+        "./src/layouts/*"
+      ],
+      "helpers/*": [
+        "./src/helpers/*"
+      ]
+    },
+    /* noEmit - Snowpack builds (emits) files, not tsc. */
+    "noEmit": true,
+    /* Additional Options */
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true,
+    "importsNotUsedAsValues": "error"
+  }
+}
