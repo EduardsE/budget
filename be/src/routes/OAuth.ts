@@ -46,12 +46,16 @@ router.get('/google/callback', async (ctx, next) => {
     },
   });
 
+  console.log(userInfoRes);
+
   const {
     name,
     picture,
     id,
     email,
   }: Google.UserInfo = await userInfoRes.json();
+
+  console.log(console.log('EMAIL---------'), email);
 
   const upsertData = { name, email, picture, googleId: id };
   const user = await services.user.onAuth(upsertData);
