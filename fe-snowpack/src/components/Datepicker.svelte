@@ -1,19 +1,21 @@
 <script lang="ts">
   import {
     addDays,
+    addMonths,
     compareAsc,
     getDaysInMonth,
     getMonth,
     getYear,
     startOfDay,
     startOfMonth,
-  } from 'date-fns';
-  import { enUS } from 'date-fns/locale';
-  import { clickOutside } from 'directives/clickOutside';
-  import { derived, writable } from 'svelte/store';
+    subMonths,
+  } from "date-fns";
+  import { enUS } from "date-fns/locale";
+  import { clickOutside } from "directives/clickOutside";
+  import { derived, writable } from "svelte/store";
 
-  import ChevronLeft from 'svg/ChevronLeft.svelte';
-  import ChevronRight from 'svg/ChevronRight.svelte';
+  import ChevronLeft from "svg/ChevronLeft.svelte";
+  import ChevronRight from "svg/ChevronRight.svelte";
 
   let visible = false;
 
@@ -23,6 +25,7 @@
   });
 
   const currentMonthYear = writable({
+    // month: getMonth(addMonths($range.start, 1)),
     month: getMonth($range.start),
     year: getYear($range.start),
   });
@@ -31,7 +34,7 @@
     visible = false;
   };
 
-  const weekdays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  const weekdays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   const onSelect = (date: Date) => {
     range.update((range) => ({ ...range, start: date }));
@@ -60,26 +63,28 @@
     const firstDayOfMonth = startOfMonth(date).getDay();
 
     let dates = [...Array(daysInMonth)].map((_, index) => index + 1);
-    const paddedDates: Array<undefined | number> = [
-      ...Array(firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1),
-      ...dates,
+
+    const previousMonthDate = subMonths(date, 1);
+    const previousMonthYear = {
+      month: getMonth(previousMonthDate),
+      year: getYear(previousMonthDate),
+    };
+    const daysInPreviousMonth = getDaysInMonth(previousMonthDate);
+
+    return [
+      ...[...Array(daysInPreviousMonth + 1).keys()]
+        .reverse()
+        .splice(0, firstDayOfMonth - 1)
+        .reverse()
+        .map(
+          (date) =>
+            new Date(previousMonthYear.year, previousMonthYear.month, date)
+        ),
+      ...dates.map(
+        (date) =>
+          new Date($currentMonthYear.year, $currentMonthYear.month, date)
+      ),
     ];
-
-    return paddedDates.map((date) =>
-      date
-        ? new Date($currentMonthYear.year, $currentMonthYear.month, date)
-        : undefined
-    );
-
-    // return paddedDates;
-    // return paddedDates.map((date) => {
-
-    // })
-
-    // return [
-    //   ...Array(firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1),
-    //   ...dates,
-    // ];
   });
 </script>
 
@@ -94,7 +99,7 @@
           ><ChevronLeft color="white" width={12} height={12} /></button
         >
         <span class="currentMonthYear"
-          >{enUS.localize.month($currentMonthYear.month)}
+          >{enUS.localize?.month($currentMonthYear.month)}
           {$currentMonthYear.year}</span
         >
         <button on:click={() => changeMonth(true)}
@@ -107,12 +112,12 @@
         {/each}
         {#each $dates as date}
           <button
-            on:click={() => onSelect(date)}
+            on:click={() => date && onSelect(date)}
             class:selected={compareAsc(
               startOfDay($range.start),
               startOfDay(date)
             ) === 0}
-            class="date">{date ? date.getDate() : ''}</button
+            class="date">{date ? date.getDate() : ""}</button
           >
         {/each}
       </div>
@@ -136,7 +141,6 @@
     position: absolute;
     top: 40px;
     left: 0px;
-    width: 300px;
     border-radius: 5px;
     --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
@@ -151,7 +155,7 @@
   }
 
   .calendar {
-    padding: 20px;
+    padding: 8px 20px 20px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-column-gap: 10px;
@@ -162,13 +166,19 @@
     text-align: center;
     font-size: 12px;
     border-radius: 50%;
+    width: 24px;
+    height: 24px;
 
     &.selected {
       background: #596ac0;
+    }
 
-      &:focus {
-        outline: none;
-      }
+    &:focus {
+      outline: none;
+    }
+
+    &:hover:not(.day) {
+      background: rgb(89, 106, 192, 50%);
     }
 
     &.day {
