@@ -2,6 +2,7 @@
   import { navigate } from "svelte-routing";
 
   import { user } from "stores/user";
+  import defaultAvatar from "images/default-avatar.jpg";
 
   import { clickOutside } from "directives/clickOutside.ts";
 
@@ -43,7 +44,7 @@
       <span class="sr-only">Open user menu</span>
       <img
         class="h-8 w-8 rounded-full"
-        src={$user?.picture || '/images/default-avatar.jpg'}
+        src={$user?.picture ||defaultAvatar}
         alt="" />
     </button>
   </div>

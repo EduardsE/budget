@@ -41,10 +41,10 @@
       id="user-menu"
       aria-haspopup="true">
       <span class="sr-only">Open user menu</span>
-      <img
+      <!-- <img
         class="h-8 w-8 rounded-full"
         src={$user?.picture || '/images/default-avatar.jpg'}
-        alt="" />
+        alt="" /> -->
     </button>
   </div>
   <!--

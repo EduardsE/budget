@@ -47,6 +47,9 @@
       ],
       "helpers/*": [
         "./src/helpers/*"
+      ],
+      "images/*": [
+        "./src/images/*"
       ]
     },
     /* noEmit - Snowpack builds (emits) files, not tsc. */

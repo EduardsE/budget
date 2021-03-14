@@ -6,9 +6,12 @@ process.env.ENV = "dev";
 module.exports = {
   extends: "@snowpack/app-scripts-svelte",
   mount: {
-    public: { url: "/", static: true },
+    public: { url: "/" },
     src: "/_dist_",
   },
+  routes: [
+    { "match": "routes", "src": ".*", "dest": "/index.html" }
+  ],
   alias: {
     components: "./src/components",
     constants: "./src/constants",
@@ -20,6 +23,7 @@ module.exports = {
     svg: "./src/svg",
     types: "./src/types",
     config: "./src/config",
+    images: "./src/images",
   },
   plugins: [
     [
@@ -27,6 +31,8 @@ module.exports = {
       { cmd: "postcss", input: [".css"], output: [".css"] },
     ],
     "@snowpack/plugin-typescript",
+    "snowpack-plugin-relative-css-urls",
+    '@snowpack/plugin-sass',
   ],
   packageOptions: {
     installTypes: true,

@@ -25,7 +25,6 @@
 
   import { user as userStore } from "stores/user";
   import { list as categoryList } from "stores/category";
-  import type { User } from "types/User";
 
   onMount(async () => {
     if (window.location.href === `${config.BASE_URL}/auth`) return;

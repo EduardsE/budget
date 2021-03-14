@@ -12,7 +12,14 @@
   import { INPUT_STYLES } from 'components/Form/constants';
 
   const socialButtons = [Google, Twitter, Github];
+
 </script>
+
+<style>
+  .bg-auth {
+    background-image: url("../../images/auth-bg.jpg");
+  }
+</style>
 
 <div class="grid lg:grid-cols-2 xl:grid-cols-3 bg-auth bg-cover">
   <div
