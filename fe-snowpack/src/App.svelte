@@ -9,6 +9,7 @@
   import http from "lib/http";
 
   import Auth from "pages/Auth/index.svelte";
+  import AuthorizedNew from "./layouts/AuthorizedNew.svelte";
   import Authorized from "./layouts/Authorized.svelte";
 
   import Categories from "pages/Categories/index.svelte";
@@ -47,34 +48,34 @@
     <Route path="/auth" component={Auth} />
 
     <Route path="transactions">
-      <Authorized>
-        <div slot="nav">
+      <AuthorizedNew>
+        <!-- <div slot="nav">
           <TransactionNav />
-        </div>
+        </div> -->
         <div slot="content">
           <Transactions />
         </div>
-      </Authorized>
+      </AuthorizedNew>
     </Route>
     <Route path="categories">
-      <Authorized>
-        <div slot="nav">
-          <CategoriesNav />
-        </div>
+      <AuthorizedNew>
+        <!-- <div slot="nav"> -->
+        <!-- <CategoriesNav /> -->
+        <!-- </div> -->
         <div slot="content">
           <Categories />
         </div>
-      </Authorized>
+      </AuthorizedNew>
     </Route>
     <Route path="/">
-      <Authorized>
-        <div slot="nav">
+      <AuthorizedNew>
+        <!-- <div slot="nav">
           <InsightsNav />
-        </div>
+        </div> -->
         <div slot="content">
           <Insights />
         </div>
-      </Authorized>
+      </AuthorizedNew>
     </Route>
   </Router>
 </div>

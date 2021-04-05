@@ -36,12 +36,6 @@
   });
 </script>
 
-<style>
-  .background {
-    z-index: -1;
-  }
-</style>
-
 <Tailwindcss />
 <div class="w-screen h-screen absolute bg-gray-100 background" />
 
@@ -82,3 +76,9 @@
     </Route>
   </Router>
 </div>
+
+<style>
+  .background {
+    z-index: -1;
+  }
+</style>
