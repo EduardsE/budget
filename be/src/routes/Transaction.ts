@@ -1,10 +1,10 @@
-import Router from "koa-router";
+import Router from 'koa-router';
 
-import transactionService from "services/Transaction";
+import transactionService from 'services/Transaction';
 
 const router = new Router();
 
-router.get("/", async (ctx, next) => {
+router.get('/', async (ctx, next) => {
   const transactions = await transactionService.list();
 
   ctx.body = {
@@ -12,7 +12,7 @@ router.get("/", async (ctx, next) => {
   };
 });
 
-router.post("/", async (ctx, next) => {
+router.post('/', async (ctx, next) => {
   const transaction = await transactionService.create(ctx.request.body);
 
   ctx.body = {
@@ -20,7 +20,7 @@ router.post("/", async (ctx, next) => {
   };
 });
 
-router.patch("/:id", async (ctx, next) => {
+router.patch('/:id', async (ctx, next) => {
   const transaction = await transactionService.update(
     ctx.params.id,
     ctx.request.body

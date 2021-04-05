@@ -14,7 +14,9 @@ class UserService {
     return await this.model.findMany();
   }
 
-  public async onAuth(data: Pick<User, 'email'> & Partial<User>) {
+  public async onAuth(
+    data: Pick<User, 'email' | 'id' | 'name' | 'accessToken' | 'refreshToken'>
+  ) {
     const incomeCategories = DEFAULT_INCOME_CATEGORIES.map((cat) => ({
       ...cat,
       type: TransactionType.INCOME,
@@ -27,7 +29,7 @@ class UserService {
 
     return await this.model.upsert({
       where: {
-        email: data.email,
+        id: data.id,
       },
       create: {
         ...data,
@@ -36,6 +38,9 @@ class UserService {
         },
       },
       update: data,
+      include: {
+        categories: true,
+      },
     });
   }
 

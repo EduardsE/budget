@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		%svelte.head%
+	</head>
+	<body>
+		<div id="svelte">%svelte.body%</div>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+		<script>
+			// Your web app's Firebase configuration
+			const firebaseConfig = {
+				apiKey: 'AIzaSyBpjmbnlYmSHJSA4ICVMTwvXod-F_zh2Fw',
+				authDomain: 'budget-297114.firebaseapp.com',
+				projectId: 'budget-297114',
+				storageBucket: 'budget-297114.appspot.com',
+				messagingSenderId: '602604437482',
+				appId: '1:602604437482:web:28791e7e20749a4d4efc93'
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+		</script>
+	</body>
+</html>
